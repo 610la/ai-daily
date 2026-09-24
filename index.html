@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 日报 · 每日更新</title>
+<meta name="description" content="每日 AI 行业日报：大模型、产品、论文、投融资与政策动态。">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0e14;
+    --card: rgba(255,255,255,.035);
+    --border: rgba(255,255,255,.09);
+    --text: #e8ebf2;
+    --muted: #9aa3b5;
+    --accent1: #6e8fff;
+    --accent2: #b48cff;
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.7;
+    background-image:
+      radial-gradient(600px 300px at 15% -5%, rgba(110,143,255,.14), transparent 60%),
+      radial-gradient(700px 350px at 90% 0%, rgba(180,140,255,.12), transparent 60%);
+    background-attachment: fixed;
+  }
+  .container { max-width: 1080px; margin: 0 auto; padding: 40px 22px 70px; }
+  header.top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 34px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .logo {
+    width: 46px; height: 46px; border-radius: 13px; flex: none;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 19px; color: #fff;
+    box-shadow: 0 6px 24px rgba(110,143,255,.35);
+  }
+  .brand h1 { font-size: 26px; letter-spacing: 2px; }
+  .brand p { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .date-badge {
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 8px 18px; font-size: 14px; color: var(--muted);
+    background: rgba(255,255,255,.03);
+  }
+  .date-badge strong { color: var(--text); font-weight: 600; }
+  .hero {
+    border-radius: 20px; padding: 30px 30px 26px; margin-bottom: 40px;
+    background: linear-gradient(135deg, rgba(110,143,255,.13), rgba(180,140,255,.07));
+    border: 1px solid rgba(110,143,255,.28);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(400px 200px at 85% 20%, rgba(180,140,255,.18), transparent 65%);
+    pointer-events: none;
+  }
+  .kicker {
+    display: inline-block; font-size: 12px; letter-spacing: 3px; font-weight: 700;
+    color: #fff; background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    padding: 4px 14px; border-radius: 999px; margin-bottom: 16px;
+  }
+  .hero h2 { font-size: 27px; line-height: 1.45; margin-bottom: 14px; }
+  .hero p { color: #c6ccda; font-size: 15.5px; }
+  .hero .src { margin-top: 16px; font-size: 13px; color: var(--muted); }
+  .section { margin-bottom: 38px; }
+  .section h3 {
+    font-size: 18px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+  }
+  .section h3::before {
+    content: ""; width: 5px; height: 20px; border-radius: 3px;
+    background: linear-gradient(180deg, var(--accent1), var(--accent2));
+  }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 22px;
+    transition: transform .18s ease, border-color .18s ease;
+    display: flex; flex-direction: column;
+  }
+  .card:hover { transform: translateY(-3px); border-color: rgba(110,143,255,.4); }
+  .card h4 { font-size: 16.5px; line-height: 1.5; margin-bottom: 10px; }
+  .card p { font-size: 14px; color: var(--muted); flex: 1; }
+  .card .src { margin-top: 14px; font-size: 12.5px; color: #7c8496; }
+  .card .src a { color: var(--accent1); text-decoration: none; }
+  .card .src a:hover { text-decoration: underline; }
+  .briefs { display: flex; flex-direction: column; gap: 12px; }
+  .brief {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 16px 20px; font-size: 14.5px;
+  }
+  .brief strong { display: block; font-size: 15px; margin-bottom: 4px; }
+  .brief span { color: var(--muted); font-size: 13.5px; }
+  footer {
+    margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border);
+    color: #7c8496; font-size: 13px; display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .loading, .error { text-align: center; color: var(--muted); padding: 80px 20px; font-size: 15px; }
+  @media (max-width: 640px) {
+    .hero h2 { font-size: 22px; }
+    .hero { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="top">
+    <div class="brand">
+      <div class="logo">AI</div>
+      <div>
+        <h1>AI 日报</h1>
+        <p>大模型 · 产品 · 论文 · 投融资 · 政策 — 每日更新</p>
+      </div>
+    </div>
+    <div class="date-badge" id="dateBadge"><strong>…</strong></div>
+  </header>
+
+  <div id="app"><div class="loading">正在加载今日日报…</div></div>
+
+  <footer>
+    <span>由 hanhan 每日自动抓取公开新闻生成，仅供学习交流。</span>
+    <span>ai.shuyu.me</span>
+  </footer>
+</div>
+<script>
+function esc(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+function srcHtml(item) {
+  var label = esc(item.source || "");
+  if (item.url) {
+    return '来源：<a href="' + esc(item.url) + '" target="_blank" rel="noopener">' + label + " ↗</a>";
+  }
+  return "来源：" + label;
+}
+function render(d) {
+  document.title = "AI 日报 · " + d.date;
+  document.getElementById("dateBadge").innerHTML =
+    "<strong>" + esc(d.date) + "</strong> · " + esc(d.weekday || "");
+  var h = "";
+  if (d.headline) {
+    h += '<section class="hero"><span class="kicker">今日头条</span><h2>' + esc(d.headline.title) + "</h2><p>" +
+      esc(d.headline.summary) + '</p><div class="src">' + srcHtml(d.headline) + "</div></section>";
+  }
+  (d.sections || []).forEach(function (sec) {
+    h += '<section class="section"><h3>' + esc(sec.name) + '</h3><div class="cards">';
+    (sec.items || []).forEach(function (it) {
+      h += '<article class="card"><h4>' + esc(it.title) + "</h4><p>" + esc(it.summary) +
+        '</p><div class="src">' + srcHtml(it) + "</div></article>";
+    });
+    h += "</div></section>";
+  });
+  if (d.briefs && d.briefs.length) {
+    h += '<section class="section"><h3>一句话观察</h3><div class="briefs">';
+    d.briefs.forEach(function (b) {
+      h += '<div class="brief"><strong>' + esc(b.title) + "</strong><span>" + esc(b.summary) + "</span></div>";
+    });
+    h += "</div></section>";
+  }
+  document.getElementById("app").innerHTML = h;
+}
+fetch("data/latest.json", { cache: "no-store" })
+  .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
+  .then(render)
+  .catch(function () {
+    document.getElementById("app").innerHTML =
+      '<div class="error">今日日报加载失败，请稍后刷新重试。</div>';
+  });
+</script>
+</body>
+</html>
