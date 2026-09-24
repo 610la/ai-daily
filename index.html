@@ -38,12 +38,42 @@
   }
   .brand h1 { font-size: 26px; letter-spacing: 2px; }
   .brand p { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .pager { display: flex; align-items: center; gap: 8px; position: relative; }
+  .pg-btn {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1px solid var(--border); background: rgba(255,255,255,.03);
+    color: var(--text); font-size: 18px; line-height: 1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color .15s ease, opacity .15s ease;
+    padding-bottom: 2px;
+  }
+  .pg-btn:hover:not(:disabled) { border-color: rgba(110,143,255,.5); }
+  .pg-btn:disabled { opacity: .3; cursor: default; }
+  .date-wrap { position: relative; }
   .date-badge {
     border: 1px solid var(--border); border-radius: 999px;
     padding: 8px 18px; font-size: 14px; color: var(--muted);
-    background: rgba(255,255,255,.03);
+    background: rgba(255,255,255,.03); cursor: pointer;
+    font-family: inherit; transition: border-color .15s ease;
   }
+  .date-badge:hover { border-color: rgba(110,143,255,.5); }
   .date-badge strong { color: var(--text); font-weight: 600; }
+  .date-badge .caret { font-size: 11px; margin-left: 6px; color: var(--muted); }
+  .date-panel {
+    position: absolute; top: calc(100% + 8px); right: 0; z-index: 50;
+    min-width: 210px; max-height: 320px; overflow-y: auto;
+    background: #141a26; border: 1px solid var(--border); border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.5); padding: 6px;
+  }
+  .date-panel button {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    width: 100%; padding: 10px 14px; border: 0; border-radius: 9px;
+    background: transparent; color: var(--text); font-size: 14px;
+    font-family: inherit; cursor: pointer; text-align: left;
+  }
+  .date-panel button:hover { background: rgba(110,143,255,.12); }
+  .date-panel button.current { background: rgba(110,143,255,.18); }
+  .date-panel button .wd { color: var(--muted); font-size: 12.5px; }
   .hero {
     border-radius: 20px; padding: 30px 30px 26px; margin-bottom: 40px;
     background: linear-gradient(135deg, rgba(110,143,255,.13), rgba(180,140,255,.07));
@@ -113,7 +143,14 @@
         <p>大模型 · 产品 · 论文 · 投融资 · 政策 — 每日更新</p>
       </div>
     </div>
-    <div class="date-badge" id="dateBadge"><strong>…</strong></div>
+    <div class="pager">
+      <button class="pg-btn" id="prevBtn" title="前一天" aria-label="前一天">‹</button>
+      <div class="date-wrap">
+        <button class="date-badge" id="dateBtn" title="选择日期"><strong>…</strong><span class="caret">▾</span></button>
+        <div class="date-panel" id="datePanel" hidden></div>
+      </div>
+      <button class="pg-btn" id="nextBtn" title="后一天" aria-label="后一天">›</button>
+    </div>
   </header>
 
   <div id="app"><div class="loading">正在加载今日日报…</div></div>
@@ -124,6 +161,9 @@
   </footer>
 </div>
 <script>
+var dates = [];   // [{date:"2026-09-25", weekday:"星期五"}] 按日期升序
+var curIdx = -1;
+
 function esc(s) {
   return String(s == null ? "" : s)
     .replace(/&/g, "&amp;").replace(/</g, "&lt;")
@@ -138,8 +178,6 @@ function srcHtml(item) {
 }
 function render(d) {
   document.title = "AI 日报 · " + d.date;
-  document.getElementById("dateBadge").innerHTML =
-    "<strong>" + esc(d.date) + "</strong> · " + esc(d.weekday || "");
   var h = "";
   if (d.headline) {
     h += '<section class="hero"><span class="kicker">今日头条</span><h2>' + esc(d.headline.title) + "</h2><p>" +
@@ -162,13 +200,58 @@ function render(d) {
   }
   document.getElementById("app").innerHTML = h;
 }
-fetch("data/latest.json", { cache: "no-store" })
+function showError(msg) {
+  document.getElementById("app").innerHTML = '<div class="error">' + esc(msg) + "</div>";
+}
+function updatePager() {
+  var btn = document.getElementById("dateBtn");
+  if (curIdx >= 0 && dates[curIdx]) {
+    btn.innerHTML = "<strong>" + esc(dates[curIdx].date) + "</strong> · " +
+      esc(dates[curIdx].weekday || "") + '<span class="caret">▾</span>';
+  }
+  document.getElementById("prevBtn").disabled = curIdx <= 0;
+  document.getElementById("nextBtn").disabled = curIdx < 0 || curIdx >= dates.length - 1;
+  var panel = document.getElementById("datePanel");
+  var ph = "";
+  for (var i = dates.length - 1; i >= 0; i--) {
+    ph += '<button data-i="' + i + '"' + (i === curIdx ? ' class="current"' : "") + ">" +
+      "<span>" + esc(dates[i].date) + '</span><span class="wd">' + esc(dates[i].weekday || "") + "</span></button>";
+  }
+  panel.innerHTML = ph;
+}
+function loadIndex(idx) {
+  if (idx < 0 || idx >= dates.length) return;
+  curIdx = idx;
+  document.getElementById("app").innerHTML = '<div class="loading">正在加载日报…</div>';
+  fetch("data/" + dates[idx].date + ".json", { cache: "no-store" })
+    .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
+    .then(function (d) { render(d); updatePager(); })
+    .catch(function () { showError("该日期的日报加载失败，请稍后刷新重试。"); });
+}
+document.getElementById("prevBtn").addEventListener("click", function () { loadIndex(curIdx - 1); });
+document.getElementById("nextBtn").addEventListener("click", function () { loadIndex(curIdx + 1); });
+document.getElementById("dateBtn").addEventListener("click", function (e) {
+  e.stopPropagation();
+  var panel = document.getElementById("datePanel");
+  panel.hidden = !panel.hidden;
+});
+document.getElementById("datePanel").addEventListener("click", function (e) {
+  var b = e.target.closest("button");
+  if (!b) return;
+  document.getElementById("datePanel").hidden = true;
+  loadIndex(parseInt(b.getAttribute("data-i"), 10));
+});
+document.addEventListener("click", function () {
+  document.getElementById("datePanel").hidden = true;
+});
+fetch("data/index.json", { cache: "no-store" })
   .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
-  .then(render)
-  .catch(function () {
-    document.getElementById("app").innerHTML =
-      '<div class="error">今日日报加载失败，请稍后刷新重试。</div>';
-  });
+  .then(function (idx) {
+    dates = (idx && idx.dates) || [];
+    if (!dates.length) { showError("暂无日报数据。"); return; }
+    loadIndex(dates.length - 1);
+  })
+  .catch(function () { showError("日报索引加载失败，请稍后刷新重试。"); });
 </script>
 </body>
 </html>
