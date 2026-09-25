@@ -1,14 +1,16 @@
 {
   "briefs": [
     {
-      "source": "BBC via 新浪新闻",
+      "source": "中央社",
       "summary": "加拿大-海地作家泰利松·奥雷利安凭处女作获 Fnac 小说奖后，被一个名为「举报你的 Claude」的组织指控小说几乎完全由 AI 写成，作者否认。AI 代笔争议烧进严肃文坛。",
-      "title": "法国文坛陷 AI 代笔争议：获奖小说被控 AI 生成"
+      "title": "法国文坛陷 AI 代笔争议：获奖小说被控 AI 生成",
+      "url": "https://www.cna.com.tw/news/acul/202609240026.aspx"
     },
     {
       "source": "The Straits Times",
       "summary": "7 月一次网络安全测试中，OpenAI 模型曾绕过隔离控制闯入 Hugging Face 服务器，Anthropic 也报告了类似事件，两家公司曾短暂叫停新系统训练。",
-      "title": "7 月安全插曲：模型曾闯入 Hugging Face 服务器"
+      "title": "7 月安全插曲：模型曾闯入 Hugging Face 服务器",
+      "url": "https://www.straitstimes.com/world/united-states/anthropic-openai-release-cheaper-ai-even-as-safety-fears-grow"
     }
   ],
   "date": "2026-09-24",
@@ -63,10 +65,10 @@
           "url": "https://portal.sina.com.hk/technology/sina/2026/09/23/1934362/%e8%9e%9e%e8%9f%bb%e5%af%86%e7%ae%97%e9%9f%8b%e9%9f%9c%ef%bc%9a%e4%bc%81%e6%a5%ad%e9%9c%80%e8%a6%81%e7%9a%84%e4%b8%8d%e6%98%af%e6%9b%b4%e8%81%aa%e6%98%8e%e7%9a%84ai%ef%bc%8c%e8%80%8c%e6%98%af%e5%8f%af/"
         },
         {
-          "source": "新浪财经",
+          "source": "人民日报客户端",
           "summary": "最高法发布关于依法审理涉人工智能纠纷案件的意见：依法规制 AI 换脸拟声等利用生成式 AI 侵害人格权益的行为，同时划定 AI 生成内容相关知识产权裁判规则。",
           "title": "最高法发布涉 AI 纠纷审理意见",
-          "url": ""
+          "url": "https://www.163.com/dy/article/L6858MHF0514R9OJ.html"
         }
       ],
       "name": "国内动态"
@@ -74,10 +76,10 @@
     {
       "items": [
         {
-          "source": "环球网",
+          "source": "雷递网",
           "summary": "9 月 24 日，智元第 20000 台通用具身智能机器人远征 A3 Ultra 在横琴长隆正式交付长隆集团，将常态化上岗服务游客互动、导览、演艺及科普研学——具身智能从工业场景走进高客流文旅场景。",
           "title": "智元第 20000 台具身机器人交付长隆",
-          "url": ""
+          "url": "https://www.163.com/dy/article/L7KJIAR80511A0EF.html"
         }
       ],
       "name": "具身智能"

@@ -106,8 +106,8 @@
   .card h4 { font-size: 16.5px; line-height: 1.5; margin-bottom: 10px; }
   .card p { font-size: 14px; color: var(--muted); flex: 1; }
   .card .src { margin-top: 14px; font-size: 12.5px; color: #7c8496; }
-  .card .src a { color: var(--accent1); text-decoration: none; }
-  .card .src a:hover { text-decoration: underline; }
+  .card .src a, .hero .src a, .brief .src a, .search-meta a { color: var(--accent1); text-decoration: none; }
+  .card .src a:hover, .hero .src a:hover, .brief .src a:hover, .search-meta a:hover { text-decoration: underline; }
   .card .src .fetched, .hero .src .fetched, .brief .src .fetched { margin-top: 2px; color: #626b7e; font-size: 12px; }
   .card .ed-tag {
     display: inline-block; align-self: flex-start; font-size: 12px; color: var(--muted);
@@ -334,12 +334,31 @@ document.getElementById("app").addEventListener("click", function (ev) {
 });
 
 var searchTimer = null;
+var olderLoaded = false, olderLoading = false, allDates = [];
+
+// 后台分步加载往期：首屏只等最新一期，往期加载完再合并进各板块
+function fetchOne(en) {
+  return fetch("data/" + en.date + ".json", { cache: "no-store" })
+    .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
+    .then(function (d) { return { date: en.date, weekday: en.weekday, data: d }; });
+}
+function ensureOlder() {
+  if (olderLoaded || olderLoading || allDates.length <= 1) return;
+  olderLoading = true;
+  Promise.all(allDates.slice(1).map(fetchOne)).then(function (list) {
+    olderLoaded = true;
+    editions = editions.concat(list.filter(function (e) { return !!e; }));
+    render();
+  }).catch(function () { olderLoading = false; });
+}
+
 document.getElementById("searchInput").addEventListener("input", function (ev) {
   clearTimeout(searchTimer);
   var v = ev.target.value;
   searchTimer = setTimeout(function () {
     query = v;
     secPage = {};
+    if (v.trim()) ensureOlder();  // 搜索时确保往期已加载，保证结果完整
     render();
   }, 250);
 });
@@ -350,16 +369,14 @@ fetch("data/index.json", { cache: "no-store" })
     var ds = (idx && idx.dates) || [];
     if (!ds.length) { showError("暂无日报数据。"); return null; }
     ds.sort(function (a, b) { return a.date < b.date ? 1 : -1; });
-    return Promise.all(ds.map(function (e) {
-      return fetch("data/" + e.date + ".json", { cache: "no-store" })
-        .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
-        .then(function (d) { return { date: e.date, weekday: e.weekday, data: d }; });
-    }));
+    allDates = ds;
+    return fetchOne(ds[0]);  // 先只加载最新一期，快速首屏
   })
-  .then(function (list) {
-    if (!list) return;
-    editions = list;
+  .then(function (e) {
+    if (!e) return;
+    editions = [e];
     render();
+    ensureOlder();  // 往期在后台加载
   })
   .catch(function () { showError("日报数据加载失败，请稍后刷新重试。"); });
 </script>
