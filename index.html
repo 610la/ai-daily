@@ -38,42 +38,23 @@
   }
   .brand h1 { font-size: 26px; letter-spacing: 2px; }
   .brand p { color: var(--muted); font-size: 13px; margin-top: 2px; }
-  .pager { display: flex; align-items: center; gap: 8px; position: relative; }
-  .pg-btn {
-    width: 34px; height: 34px; border-radius: 50%;
-    border: 1px solid var(--border); background: rgba(255,255,255,.03);
-    color: var(--text); font-size: 18px; line-height: 1; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: border-color .15s ease, opacity .15s ease;
-    padding-bottom: 2px;
+  .search-box { position: relative; }
+  .search-box input {
+    width: 260px; max-width: 60vw;
+    background: rgba(255,255,255,.04); border: 1px solid var(--border);
+    border-radius: 999px; padding: 10px 38px 10px 18px;
+    color: var(--text); font-size: 14px; font-family: inherit;
+    outline: none; transition: border-color .15s ease, width .2s ease;
   }
-  .pg-btn:hover:not(:disabled) { border-color: rgba(110,143,255,.5); }
-  .pg-btn:disabled { opacity: .3; cursor: default; }
-  .date-wrap { position: relative; }
-  .date-badge {
-    border: 1px solid var(--border); border-radius: 999px;
-    padding: 8px 18px; font-size: 14px; color: var(--muted);
-    background: rgba(255,255,255,.03); cursor: pointer;
-    font-family: inherit; transition: border-color .15s ease;
+  .search-box input::placeholder { color: #6b7285; }
+  .search-box input:focus { border-color: rgba(110,143,255,.6); width: 300px; }
+  .search-box .icon {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--muted); font-size: 15px; pointer-events: none;
   }
-  .date-badge:hover { border-color: rgba(110,143,255,.5); }
-  .date-badge strong { color: var(--text); font-weight: 600; }
-  .date-badge .caret { font-size: 11px; margin-left: 6px; color: var(--muted); }
-  .date-panel {
-    position: absolute; top: calc(100% + 8px); right: 0; z-index: 50;
-    min-width: 210px; max-height: 320px; overflow-y: auto;
-    background: #141a26; border: 1px solid var(--border); border-radius: 14px;
-    box-shadow: 0 12px 40px rgba(0,0,0,.5); padding: 6px;
-  }
-  .date-panel button {
-    display: flex; justify-content: space-between; align-items: center; gap: 12px;
-    width: 100%; padding: 10px 14px; border: 0; border-radius: 9px;
-    background: transparent; color: var(--text); font-size: 14px;
-    font-family: inherit; cursor: pointer; text-align: left;
-  }
-  .date-panel button:hover { background: rgba(110,143,255,.12); }
-  .date-panel button.current { background: rgba(110,143,255,.18); }
-  .date-panel button .wd { color: var(--muted); font-size: 12.5px; }
+  .ed-line { color: var(--muted); font-size: 13.5px; margin-bottom: 18px; letter-spacing: 1px; }
+  .ed-line strong { color: var(--text); }
+  mark { background: rgba(110,143,255,.35); color: #fff; border-radius: 3px; padding: 0 2px; }
   .hero {
     border-radius: 20px; padding: 30px 30px 26px; margin-bottom: 40px;
     background: linear-gradient(135deg, rgba(110,143,255,.13), rgba(180,140,255,.07));
@@ -94,13 +75,21 @@
   .hero p { color: #c6ccda; font-size: 15.5px; }
   .hero .src { margin-top: 16px; font-size: 13px; color: var(--muted); }
   .section { margin-bottom: 38px; }
-  .section h3 {
-    font-size: 18px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
-  }
+  .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; flex-wrap: wrap; gap: 8px; }
+  .section h3 { font-size: 18px; display: flex; align-items: center; gap: 10px; }
   .section h3::before {
     content: ""; width: 5px; height: 20px; border-radius: 3px;
     background: linear-gradient(180deg, var(--accent1), var(--accent2));
   }
+  .sec-pager { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+  .sec-pager button {
+    border: 1px solid var(--border); background: rgba(255,255,255,.03);
+    color: var(--text); border-radius: 999px; padding: 4px 14px;
+    font-size: 13px; font-family: inherit; cursor: pointer;
+    transition: border-color .15s ease, opacity .15s ease;
+  }
+  .sec-pager button:hover:not(:disabled) { border-color: rgba(110,143,255,.5); }
+  .sec-pager button:disabled { opacity: .3; cursor: default; }
   .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
   .card {
     background: var(--card); border: 1px solid var(--border);
@@ -114,6 +103,10 @@
   .card .src { margin-top: 14px; font-size: 12.5px; color: #7c8496; }
   .card .src a { color: var(--accent1); text-decoration: none; }
   .card .src a:hover { text-decoration: underline; }
+  .card .ed-tag {
+    display: inline-block; align-self: flex-start; font-size: 12px; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; margin-bottom: 10px;
+  }
   .briefs { display: flex; flex-direction: column; gap: 12px; }
   .brief {
     background: var(--card); border: 1px solid var(--border); border-radius: 14px;
@@ -121,6 +114,10 @@
   }
   .brief strong { display: block; font-size: 15px; margin-bottom: 4px; }
   .brief span { color: var(--muted); font-size: 13.5px; }
+  .brief .src, .search-meta { margin-top: 8px; font-size: 12.5px; color: #7c8496; }
+  .search-title { font-size: 17px; margin-bottom: 20px; color: var(--muted); }
+  .search-title strong { color: var(--text); }
+  .no-result { text-align: center; color: var(--muted); padding: 60px 20px; font-size: 15px; }
   footer {
     margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border);
     color: #7c8496; font-size: 13px; display: flex; justify-content: space-between;
@@ -130,6 +127,8 @@
   @media (max-width: 640px) {
     .hero h2 { font-size: 22px; }
     .hero { padding: 24px 20px; }
+    .search-box input { width: 200px; }
+    .search-box input:focus { width: 220px; }
   }
 </style>
 </head>
@@ -143,13 +142,9 @@
         <p>大模型 · 产品 · 论文 · 投融资 · 政策 — 每日更新</p>
       </div>
     </div>
-    <div class="pager">
-      <button class="pg-btn" id="prevBtn" title="前一天" aria-label="前一天">‹</button>
-      <div class="date-wrap">
-        <button class="date-badge" id="dateBtn" title="选择日期"><strong>…</strong><span class="caret">▾</span></button>
-        <div class="date-panel" id="datePanel" hidden></div>
-      </div>
-      <button class="pg-btn" id="nextBtn" title="后一天" aria-label="后一天">›</button>
+    <div class="search-box">
+      <input id="searchInput" type="search" placeholder="搜索标题、摘要、来源…" autocomplete="off">
+      <span class="icon">⌕</span>
     </div>
   </header>
 
@@ -161,97 +156,157 @@
   </footer>
 </div>
 <script>
-var dates = [];   // [{date:"2026-09-25", weekday:"星期五"}] 按日期升序
-var curIdx = -1;
+var editions = [];   // [{date, weekday, data}] 最新在前
+var secPage = {};   // section index -> 当前页
+var query = "";
+var PAGE = 6;
 
 function esc(s) {
   return String(s == null ? "" : s)
     .replace(/&/g, "&amp;").replace(/</g, "&lt;")
     .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
-function srcHtml(item) {
+function hi(s, q) {
+  var t = esc(s);
+  if (!q) return t;
+  var qe = esc(q).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  try { return t.replace(new RegExp(qe, "gi"), "<mark>$&</mark>"); }
+  catch (e) { return t; }
+}
+function srcLabel(item) {
   var label = esc(item.source || "");
   if (item.url) {
     return '来源：<a href="' + esc(item.url) + '" target="_blank" rel="noopener">' + label + " ↗</a>";
   }
   return "来源：" + label;
 }
-function render(d) {
+function metaLine(item) {
+  var parts = [];
+  if (item.fetched_at) parts.push("抓取于 " + esc(item.fetched_at));
+  parts.push(srcLabel(item));
+  return parts.join(" · ");
+}
+function cardHtml(it, q, edTag) {
+  var tag = edTag ? '<span class="ed-tag">' + esc(edTag) + "</span>" : "";
+  return '<article class="card">' + tag + "<h4>" + hi(it.title, q) + "</h4><p>" + hi(it.summary, q) +
+    '</p><div class="src">' + metaLine(it) + "</div></article>";
+}
+function showError(msg) {
+  document.getElementById("app").innerHTML = '<div class="error">' + esc(msg) + "</div>";
+}
+
+function renderEdition() {
+  var e = editions[0];
+  if (!e) { showError("暂无日报数据。"); return; }
+  var d = e.data;
   document.title = "AI 日报 · " + d.date;
-  var h = "";
+  var h = '<div class="ed-line"><strong>' + esc(d.date) + "</strong> · " + esc(d.weekday || "") + " · 最新一期</div>";
   if (d.headline) {
     h += '<section class="hero"><span class="kicker">今日头条</span><h2>' + esc(d.headline.title) + "</h2><p>" +
-      esc(d.headline.summary) + '</p><div class="src">' + srcHtml(d.headline) + "</div></section>";
+      esc(d.headline.summary) + '</p><div class="src">' + metaLine(d.headline) + "</div></section>";
   }
-  (d.sections || []).forEach(function (sec) {
-    h += '<section class="section"><h3>' + esc(sec.name) + '</h3><div class="cards">';
-    (sec.items || []).forEach(function (it) {
-      h += '<article class="card"><h4>' + esc(it.title) + "</h4><p>" + esc(it.summary) +
-        '</p><div class="src">' + srcHtml(it) + "</div></article>";
-    });
+  (d.sections || []).forEach(function (sec, si) {
+    var items = sec.items || [];
+    var pages = Math.max(1, Math.ceil(items.length / PAGE));
+    var p = Math.min(secPage[si] || 0, pages - 1);
+    secPage[si] = p;
+    var slice = items.slice(p * PAGE, p * PAGE + PAGE);
+    h += '<section class="section"><div class="section-head"><h3>' + esc(sec.name) + "</h3>";
+    if (pages > 1) {
+      h += '<div class="sec-pager"><button data-s="' + si + '" data-d="-1"' + (p === 0 ? " disabled" : "") + ">‹ 上一页</button>" +
+        "<span>" + (p + 1) + " / " + pages + "</span>" +
+        '<button data-s="' + si + '" data-d="1"' + (p === pages - 1 ? " disabled" : "") + ">下一页 ›</button></div>";
+    }
+    h += '</div><div class="cards">';
+    slice.forEach(function (it) { h += cardHtml(it, "", ""); });
     h += "</div></section>";
   });
   if (d.briefs && d.briefs.length) {
-    h += '<section class="section"><h3>一句话观察</h3><div class="briefs">';
+    h += '<section class="section"><div class="section-head"><h3>一句话观察</h3></div><div class="briefs">';
     d.briefs.forEach(function (b) {
-      h += '<div class="brief"><strong>' + esc(b.title) + "</strong><span>" + esc(b.summary) + "</span></div>";
+      h += '<div class="brief"><strong>' + esc(b.title) + "</strong><span>" + esc(b.summary) +
+        '</span><div class="src">' + metaLine(b) + "</div></div>";
     });
     h += "</div></section>";
   }
   document.getElementById("app").innerHTML = h;
 }
-function showError(msg) {
-  document.getElementById("app").innerHTML = '<div class="error">' + esc(msg) + "</div>";
-}
-function updatePager() {
-  var btn = document.getElementById("dateBtn");
-  if (curIdx >= 0 && dates[curIdx]) {
-    btn.innerHTML = "<strong>" + esc(dates[curIdx].date) + "</strong> · " +
-      esc(dates[curIdx].weekday || "") + '<span class="caret">▾</span>';
+
+function renderSearch() {
+  var q = query.trim().toLowerCase();
+  var total = 0;
+  var h = '<div class="search-title">搜索 <strong>“' + esc(query.trim()) + '”</strong>，共 <strong id="srCount">…</strong> 条结果（全部往期）</div>';
+  editions.forEach(function (e) {
+    var d = e.data;
+    var hits = [];
+    function match(it, secName) {
+      var t = [it.title, it.summary, it.source].join(" ").toLowerCase();
+      if (t.indexOf(q) !== -1) hits.push({ it: it, sec: secName });
+    }
+    if (d.headline) match(d.headline, "头条");
+    (d.sections || []).forEach(function (sec) {
+      (sec.items || []).forEach(function (it) { match(it, sec.name); });
+    });
+    (d.briefs || []).forEach(function (b) { match(b, "一句话观察"); });
+    if (hits.length) {
+      total += hits.length;
+      h += '<section class="section"><div class="section-head"><h3>' + esc(d.date) + " · " + esc(d.weekday || "") + "</h3></div>";
+      h += '<div class="cards">';
+      hits.forEach(function (x) { h += cardHtml(x.it, query.trim(), x.sec); });
+      h += "</div></section>";
+    }
+  });
+  if (!total) {
+    h += '<div class="no-result">没有找到相关内容，换个关键词试试。</div>';
   }
-  document.getElementById("prevBtn").disabled = curIdx <= 0;
-  document.getElementById("nextBtn").disabled = curIdx < 0 || curIdx >= dates.length - 1;
-  var panel = document.getElementById("datePanel");
-  var ph = "";
-  for (var i = dates.length - 1; i >= 0; i--) {
-    ph += '<button data-i="' + i + '"' + (i === curIdx ? ' class="current"' : "") + ">" +
-      "<span>" + esc(dates[i].date) + '</span><span class="wd">' + esc(dates[i].weekday || "") + "</span></button>";
-  }
-  panel.innerHTML = ph;
+  document.getElementById("app").innerHTML = h;
+  var c = document.getElementById("srCount");
+  if (c) c.textContent = total;
 }
-function loadIndex(idx) {
-  if (idx < 0 || idx >= dates.length) return;
-  curIdx = idx;
-  document.getElementById("app").innerHTML = '<div class="loading">正在加载日报…</div>';
-  fetch("data/" + dates[idx].date + ".json", { cache: "no-store" })
-    .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
-    .then(function (d) { render(d); updatePager(); })
-    .catch(function () { showError("该日期的日报加载失败，请稍后刷新重试。"); });
+
+function render() {
+  if (query.trim()) renderSearch();
+  else renderEdition();
 }
-document.getElementById("prevBtn").addEventListener("click", function () { loadIndex(curIdx - 1); });
-document.getElementById("nextBtn").addEventListener("click", function () { loadIndex(curIdx + 1); });
-document.getElementById("dateBtn").addEventListener("click", function (e) {
-  e.stopPropagation();
-  var panel = document.getElementById("datePanel");
-  panel.hidden = !panel.hidden;
+
+document.getElementById("app").addEventListener("click", function (ev) {
+  var b = ev.target.closest("button[data-s]");
+  if (!b || b.disabled) return;
+  var si = parseInt(b.getAttribute("data-s"), 10);
+  var dd = parseInt(b.getAttribute("data-d"), 10);
+  secPage[si] = Math.max(0, (secPage[si] || 0) + dd);
+  renderEdition();
 });
-document.getElementById("datePanel").addEventListener("click", function (e) {
-  var b = e.target.closest("button");
-  if (!b) return;
-  document.getElementById("datePanel").hidden = true;
-  loadIndex(parseInt(b.getAttribute("data-i"), 10));
+
+var searchTimer = null;
+document.getElementById("searchInput").addEventListener("input", function (ev) {
+  clearTimeout(searchTimer);
+  var v = ev.target.value;
+  searchTimer = setTimeout(function () {
+    query = v;
+    secPage = {};
+    render();
+  }, 250);
 });
-document.addEventListener("click", function () {
-  document.getElementById("datePanel").hidden = true;
-});
+
 fetch("data/index.json", { cache: "no-store" })
   .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
   .then(function (idx) {
-    dates = (idx && idx.dates) || [];
-    if (!dates.length) { showError("暂无日报数据。"); return; }
-    loadIndex(dates.length - 1);
+    var ds = (idx && idx.dates) || [];
+    if (!ds.length) { showError("暂无日报数据。"); return null; }
+    ds.sort(function (a, b) { return a.date < b.date ? 1 : -1; });
+    return Promise.all(ds.map(function (e) {
+      return fetch("data/" + e.date + ".json", { cache: "no-store" })
+        .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
+        .then(function (d) { return { date: e.date, weekday: e.weekday, data: d }; });
+    }));
   })
-  .catch(function () { showError("日报索引加载失败，请稍后刷新重试。"); });
+  .then(function (list) {
+    if (!list) return;
+    editions = list;
+    render();
+  })
+  .catch(function () { showError("日报数据加载失败，请稍后刷新重试。"); });
 </script>
 </body>
 </html>
