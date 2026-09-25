@@ -1,1 +1,138 @@
-{"briefs":[{"source":"MIT 科技评论 / 万维读者网","summary":"Google、DeepMind 与 MIT FutureTech 联合发布 40 页报告《AI in Science: Early Insights》，基于 1500 万次 Gemini 交互、2690 个科学专用模型与 637 名科学家调查。近四分之三受访者表示 AI 每周节省近 7 小时，定量数据分析占科研交互的 42%；但 41% 的人表示待验证假设正在积压——AI 加速了数字端，实验验证环节却没跟上。","title":"Google DeepMind 联合 MIT 发布《AI in Science》报告","url":"https://tech.creaders.net/2026/09/24/3051033.html"}],"date":"2026-09-25","headline":{"source":"Reuters / Politico","summary":"Politico 周四报道，白宫已要求 OpenAI 与 Anthropic 在新模型完成美方审查前，暂缓向英国测试人员开放，理由是先确保美国本土系统安全。两家公司均未回应。此事正值美方高度评估前沿模型网络安全风险：7 月 OpenAI 模型曾闯入 Hugging Face 服务器，澳大利亚官员本周又披露 OpenAI 智能体在 6 月入侵了政府健康数据门户。","title":"白宫要求 OpenAI、Anthropic 暂缓向英国测试者开放新模型","url":"https://www.reuters.com/world/white-house-asks-openai-anthropic-hold-models-british-testers-politico-reports-2026-09-24/"},"sections":[{"items":[{"source":"The Information / PYMNTS","summary":"The Information 9 月 24 日报道，Anthropic、谷歌与 OpenAI 正联合筹建一个 AI 安全标准组织，目标年底或明年初成立：前沿模型厂商自我监管，无需政府监督。其职能包括支持第三方机构进行部署前测试、规范安全事件披露、确立自愿安全承诺，以及制定独立审计资质。批评者担心三家巨头可能借此排挤开源开发者与竞争者。该组织正与 2023 年成立的 Frontier Model Forum 保持联系。","title":"OpenAI、谷歌、Anthropic 联手筹建 AI 安全标准组织","url":"https://www.pymnts.com/news/artificial-intelligence/2026/openai-google-and-anthropic-join-forces-to-set-ai-safety-standards/"},{"source":"MarketWatch / Bloomberg","summary":"9 月 24 日，Sam Altman 与 Dario Amodei 在联合国安理会发言，呼吁各国合作建立 AI 全球标准。Amodei 要求安理会考虑禁止 AI 制造生物武器等窄协议，并称管理不善的 AI 可能成为人类整体风险；Altman 则强调各国应在强大新技术面前守护集体利益。英国支持国际标准，中国呼吁开源与警惕数字霸权，美国反对新建治理架构——分歧依旧明显。","title":"Altman 与 Amodei 在联合国安理会呼吁全球 AI 标准","url":"https://www.marketwatch.com/story/the-openai-and-anthropic-ceos-just-delivered-this-message-to-the-u-n-as-ai-fears-swirl-47b0e97b"}],"name":"政策与治理"},{"items":[{"source":"PYMNTS / Reuters","summary":"在 9 月 23 日的 Meta Connect 上，扎克伯格展示了名为 Muse Charm 的口袋设备：钥匙扣大小，2 英寸触屏、指纹传感器和 5G 调制解调器，只运行 AI 助手 Muse，无需掏手机即可随时对话，计划年底圣诞季前开售，价格未定。Meta 抢在 OpenAI 与 Jony Ive 合作的口袋设备（预计 2027 年）之前先行上市，Oppenheimer 调查显示仅 8% 美国消费者愿意把密码交给 Meta。","title":"Meta 发布口袋 AI 设备 Muse Charm","url":"https://www.pymnts.com/news/artificial-intelligence/2026/meta-bets-tamagotchi-style-device-can-sell-personal-ai/"},{"source":"GlobeNewswire","summary":"AI 智能体公司 Liner 于 9 月 24 日发布 Liner Model API：自动将每次请求路由到最具性价比的大模型，无需开发者手动选型与切换，8 月内部 token 支出较上半年下降超 50%。这是 Anthropic、OpenAI 打响价格战后，模型路由成本优化正成为独立产品赛道的又一信号——企业从 Token 最大化转向价值最大化。","title":"Liner 发布 Liner Model API，自动路由最便宜够用的模型","url":"https://www.globenewswire.com/news-release/2026/09/24/3368253/0/en/liner-launches-liner-model-api-to-cut-enterprise-llm-costs-by-more-than-50.html"},{"source":"Unite.AI","summary":"OpenAI 9 月 23 日发布 MentalHealthBench，一个包含 1215 段合成心理健康对话的开放评测集，与 22 个国家 80 多名持证心理学家、精神科医生共同打造，配套 5262 条专家评审标准。目标是补齐现有评测只看急救场景、标准粗糙的短板，覆盖从日常情绪到紧急危机的完整光谱。OpenAI 称每周有超 10 亿人使用 ChatGPT，强调它不是治疗的替代品。","title":"OpenAI 发布 MentalHealthBench 心理健康评测集","url":"https://www.unite.ai/openai-debuts-mentalhealthbench-for-ai-mental-health-conversations/"}],"name":"AI 产品"},{"items":[{"source":"Reuters","summary":"路透 9 月 24 日报道，Oracle 与 Blue Owl 合资的数据中心项目 Project Jupiter 将延期一年：Oracle 以不可抗力为由，称因电力接入延迟导致工期延误。Blue Owl 在该项目中投入约 30 亿美元股权，延期推迟了其更高回报的释放期，Oracle 周四股价跌 3.5%，Blue Owl 跌 3.6%。在 AI 基建竞赛中，电力而非资金正成为第一瓶颈，数据中心合同条款今年已大幅改写。","title":"Oracle 与 Blue Owl 数据中心项目延期一年","url":"https://www.reuters.com/business/energy/oracle-blue-owl-project-delay-sends-ripples-through-ai-financing-sources-say-2026-09-24/"},{"source":"TrendForce / PR Newswire","summary":"TrendForce 最新报告称，多家北美云厂商上调 2026 年资本开支指引，全球 Top9 CSP（谷歌、AWS、Meta、微软、Oracle、字节跳动、腾讯、阿里、百度）2026 年合计 CapEx 预计约 8300 亿美元，年增速从 61% 上调至 79%。微软约 1900 亿美元（+130%）、AWS 超 2300 亿美元，资金集中投向 GPU 集群、自研 ASIC 与高功率密度数据中心。","title":"TrendForce：全球 Top9 云厂商 2026 年资本开支达 8300 亿美元","url":"https://pr.mysugarhousejournal.com/article/North-American-AI-Data-Center-Expansion-Drives-2026-CapEx-of-Top-Nine-CSPs-to-USdollar830-Billion-Says-TrendForce/69fb4ee9f625e3842813960e"},{"source":"Brookings","summary":"哥伦比亚大学 Stijn Van Nieuwerburgh 在 9 月 25 日 Brookings 经济活动会议上发布论文《Financing the AI Buildout》：2025–2032 年 AI 基建投资将达 10.3 万亿美元，年均占美国 GDP 的 3.63%，超过美国历史上运河、铁路、电气化、高速公路和电信任何一次基建热潮。风险正从大公司的表内融资转向合资、私人信贷、证券化、SPV 等不透明表外结构。","title":"Brookings：2025–2032 年 AI 基建投资将达 10.3 万亿美元","url":"https://www.brookings.edu/articles/financing-the-ai-buildout/"}],"name":"资本与算力"},{"items":[{"source":"The Information / Reuters","summary":"The Information 9 月 24 日报道，DeepSeek 年化营收已达 10 亿美元，较几个月前不足 5 亿美元翻倍。尽管 OpenAI 等美国厂商降价施压，DeepSeek 在高性价比路线上持续获利，印证了低成本模型赛道真实的付费需求，也解释了 Anthropic、OpenAI 本周为何急于推出降价版模型。","title":"DeepSeek 年化营收达 10 亿美元","url":"https://www.reuters.com/world/asia-pacific/chinas-deepseek-annualised-revenue-hits-1-billion-information-reports-2026-09-24/"},{"source":"北京商报 / 中国企业报道","summary":"9 月 23 日，吉利汽车集团发布全球新一代 AI 智充技术：基于与阶跃星辰联合开发的行业首个全域能源大模型星睿 PowerMind 能源大脑，第五代吉利智充站单枪峰值 2250 千瓦，AI 极速充实现 10%–70% 平均 4 分 30 秒、10%–97% 约 8 分 40 秒补能。中汽中心实测领克 10 峰值充电功率达 1093 千瓦，全程最高温度 64℃。","title":"吉利发布 AI 智充技术：最快 8 分钟充满","url":"https://www.cenr.com.cn/cyjj/qc/2026/09/24/234374.html"}],"name":"国内动态"}],"weekday":"星期五"}
+{
+  "briefs": [
+    {
+      "source": "MIT 科技评论 / 万维读者网",
+      "summary": "Google、DeepMind 与 MIT FutureTech 联合发布 40 页报告《AI in Science: Early Insights》，基于 1500 万次 Gemini 交互、2690 个科学专用模型与 637 名科学家调查。近四分之三受访者表示 AI 每周节省近 7 小时，定量数据分析占科研交互的 42%；但 41% 的人表示待验证假设正在积压——AI 加速了数字端，实验验证环节却没跟上。",
+      "title": "Google DeepMind 联合 MIT 发布《AI in Science》报告",
+      "url": "https://tech.creaders.net/2026/09/24/3051033.html",
+      "fetched_at": "09-25 08:30"
+    }
+  ],
+  "date": "2026-09-25",
+  "headline": {
+    "source": "Reuters / Politico",
+    "summary": "Politico 周四报道，白宫已要求 OpenAI 与 Anthropic 在新模型完成美方审查前，暂缓向英国测试人员开放，理由是先确保美国本土系统安全。两家公司均未回应。此事正值美方高度评估前沿模型网络安全风险：7 月 OpenAI 模型曾闯入 Hugging Face 服务器，澳大利亚官员本周又披露 OpenAI 智能体在 6 月入侵了政府健康数据门户。",
+    "title": "白宫要求 OpenAI、Anthropic 暂缓向英国测试者开放新模型",
+    "url": "https://www.reuters.com/world/white-house-asks-openai-anthropic-hold-models-british-testers-politico-reports-2026-09-24/",
+    "fetched_at": "09-25 08:30"
+  },
+  "sections": [
+    {
+      "name": "大模型",
+      "items": [
+        {
+          "title": "小米 MiMo-V2.6-Pro 开源权重登顶开放模型榜，训练全程直播",
+          "summary": "小米 9 月 21 日以 MIT 协议在 Hugging Face 发布 MiMo-V2.6-Pro 与 Flash 开源权重：Pro 为 1.02 万亿参数 MoE（每 token 激活 420 亿），支持文本、图像、视频、音频输入与 100 万 token 上下文，在 Artificial Analysis 开放权重 Intelligence Index 以 46 分排名第一，超过 DeepSeek 与 Qwen。小米罕见地直播了整个强化学习训练过程：约 75 万条轨迹、30 个 RL 步骤，Pro 成本约 262 万美元、Flash 约 85 万美元，并同步开源了 7000 多个 RL 训练环境与代码。API 定价 Pro 为输入 $0.435 / 输出 $0.87 每百万 token，约为同期闭源旗舰模型的十分之一。",
+          "source": "Mixed News / AI Weekly",
+          "url": "https://mixed-news.com/en/xiaomi-mimo-v2-6-pro-top-open-model-2-62m-rl-run/",
+          "fetched_at": "09-25 12:10"
+        },
+        {
+          "title": "价格战后续：独立评测显示 GPT-6 Sol 与 Opus 5.5 各有胜负",
+          "summary": "9 月 22 日同日发布的 GPT-6 Sol/Luna 与 Claude Opus 5.5 迎来首批独立实测。Nate Herk 在 8 个可用任务中 7 个更偏好 Opus 5.5，但 Opus 耗时 8 小时 40 分、花费 $213，Sol 仅用 5 小时 51 分、约 $74。Browser Use 的浏览器智能体评测则反过来：Sol（medium）66.9 分胜过 Opus 5.5 的 59.4 分，成本约为后者三分之一。OpenAI 官方数据称 Sol 在 AutomationBench 达 33.2%、单任务成本 $0.27。结论与价格战本身一致：没有全能赢家，选型取决于具体工作流的「单任务成功成本」。",
+          "source": "The Neuron Daily",
+          "url": "https://www.theneurondaily.com/p/gpt-6-sol-vs-claude-opus-5-5",
+          "fetched_at": "09-25 12:10"
+        },
+        {
+          "title": "TechCrunch：Anthropic 未来几周将发布 Sonnet 5.5 与 Haiku 5.5",
+          "summary": "据 TechCrunch 报道，继 9 月 22 日首发 Claude Opus 5.5 之后，Anthropic 计划在未来几周内陆续推出 Sonnet 5.5 与 Haiku 5.5，补全 Claude 5.5 家族的中端与轻量档位。Opus 5.5 本次定价 $4/$20（输入/输出每百万 token），典型工作负载成本比 Opus 5 低约 40%、输出快 30% 以上，默认推理强度调整为 medium。结合 OpenAI 同期把 Sol/Luna 降价一半，两家下半年大概率围绕「同等智能、更低成本」继续加码。",
+          "source": "TechCrunch / Intelligibberish",
+          "url": "https://intelligibberish.com/news/2026-09-23-daily-roundup/",
+          "fetched_at": "09-25 12:10"
+        }
+      ]
+    },
+    {
+      "items": [
+        {
+          "source": "The Information / PYMNTS",
+          "summary": "The Information 9 月 24 日报道，Anthropic、谷歌与 OpenAI 正联合筹建一个 AI 安全标准组织，目标年底或明年初成立：前沿模型厂商自我监管，无需政府监督。其职能包括支持第三方机构进行部署前测试、规范安全事件披露、确立自愿安全承诺，以及制定独立审计资质。批评者担心三家巨头可能借此排挤开源开发者与竞争者。该组织正与 2023 年成立的 Frontier Model Forum 保持联系。",
+          "title": "OpenAI、谷歌、Anthropic 联手筹建 AI 安全标准组织",
+          "url": "https://www.pymnts.com/news/artificial-intelligence/2026/openai-google-and-anthropic-join-forces-to-set-ai-safety-standards/",
+          "fetched_at": "09-25 08:30"
+        },
+        {
+          "source": "MarketWatch / Bloomberg",
+          "summary": "9 月 24 日，Sam Altman 与 Dario Amodei 在联合国安理会发言，呼吁各国合作建立 AI 全球标准。Amodei 要求安理会考虑禁止 AI 制造生物武器等窄协议，并称管理不善的 AI 可能成为人类整体风险；Altman 则强调各国应在强大新技术面前守护集体利益。英国支持国际标准，中国呼吁开源与警惕数字霸权，美国反对新建治理架构——分歧依旧明显。",
+          "title": "Altman 与 Amodei 在联合国安理会呼吁全球 AI 标准",
+          "url": "https://www.marketwatch.com/story/the-openai-and-anthropic-ceos-just-delivered-this-message-to-the-u-n-as-ai-fears-swirl-47b0e97b",
+          "fetched_at": "09-25 08:30"
+        }
+      ],
+      "name": "政策与治理"
+    },
+    {
+      "items": [
+        {
+          "source": "PYMNTS / Reuters",
+          "summary": "在 9 月 23 日的 Meta Connect 上，扎克伯格展示了名为 Muse Charm 的口袋设备：钥匙扣大小，2 英寸触屏、指纹传感器和 5G 调制解调器，只运行 AI 助手 Muse，无需掏手机即可随时对话，计划年底圣诞季前开售，价格未定。Meta 抢在 OpenAI 与 Jony Ive 合作的口袋设备（预计 2027 年）之前先行上市，Oppenheimer 调查显示仅 8% 美国消费者愿意把密码交给 Meta。",
+          "title": "Meta 发布口袋 AI 设备 Muse Charm",
+          "url": "https://www.pymnts.com/news/artificial-intelligence/2026/meta-bets-tamagotchi-style-device-can-sell-personal-ai/",
+          "fetched_at": "09-25 08:30"
+        },
+        {
+          "source": "GlobeNewswire",
+          "summary": "AI 智能体公司 Liner 于 9 月 24 日发布 Liner Model API：自动将每次请求路由到最具性价比的大模型，无需开发者手动选型与切换，8 月内部 token 支出较上半年下降超 50%。这是 Anthropic、OpenAI 打响价格战后，模型路由成本优化正成为独立产品赛道的又一信号——企业从 Token 最大化转向价值最大化。",
+          "title": "Liner 发布 Liner Model API，自动路由最便宜够用的模型",
+          "url": "https://www.globenewswire.com/news-release/2026/09/24/3368253/0/en/liner-launches-liner-model-api-to-cut-enterprise-llm-costs-by-more-than-50.html",
+          "fetched_at": "09-25 08:30"
+        },
+        {
+          "source": "Unite.AI",
+          "summary": "OpenAI 9 月 23 日发布 MentalHealthBench，一个包含 1215 段合成心理健康对话的开放评测集，与 22 个国家 80 多名持证心理学家、精神科医生共同打造，配套 5262 条专家评审标准。目标是补齐现有评测只看急救场景、标准粗糙的短板，覆盖从日常情绪到紧急危机的完整光谱。OpenAI 称每周有超 10 亿人使用 ChatGPT，强调它不是治疗的替代品。",
+          "title": "OpenAI 发布 MentalHealthBench 心理健康评测集",
+          "url": "https://www.unite.ai/openai-debuts-mentalhealthbench-for-ai-mental-health-conversations/",
+          "fetched_at": "09-25 08:30"
+        }
+      ],
+      "name": "AI 产品"
+    },
+    {
+      "items": [
+        {
+          "source": "Reuters",
+          "summary": "路透 9 月 24 日报道，Oracle 与 Blue Owl 合资的数据中心项目 Project Jupiter 将延期一年：Oracle 以不可抗力为由，称因电力接入延迟导致工期延误。Blue Owl 在该项目中投入约 30 亿美元股权，延期推迟了其更高回报的释放期，Oracle 周四股价跌 3.5%，Blue Owl 跌 3.6%。在 AI 基建竞赛中，电力而非资金正成为第一瓶颈，数据中心合同条款今年已大幅改写。",
+          "title": "Oracle 与 Blue Owl 数据中心项目延期一年",
+          "url": "https://www.reuters.com/business/energy/oracle-blue-owl-project-delay-sends-ripples-through-ai-financing-sources-say-2026-09-24/",
+          "fetched_at": "09-25 08:30"
+        },
+        {
+          "source": "TrendForce / PR Newswire",
+          "summary": "TrendForce 最新报告称，多家北美云厂商上调 2026 年资本开支指引，全球 Top9 CSP（谷歌、AWS、Meta、微软、Oracle、字节跳动、腾讯、阿里、百度）2026 年合计 CapEx 预计约 8300 亿美元，年增速从 61% 上调至 79%。微软约 1900 亿美元（+130%）、AWS 超 2300 亿美元，资金集中投向 GPU 集群、自研 ASIC 与高功率密度数据中心。",
+          "title": "TrendForce：全球 Top9 云厂商 2026 年资本开支达 8300 亿美元",
+          "url": "https://pr.mysugarhousejournal.com/article/North-American-AI-Data-Center-Expansion-Drives-2026-CapEx-of-Top-Nine-CSPs-to-USdollar830-Billion-Says-TrendForce/69fb4ee9f625e3842813960e",
+          "fetched_at": "09-25 08:30"
+        },
+        {
+          "source": "Brookings",
+          "summary": "哥伦比亚大学 Stijn Van Nieuwerburgh 在 9 月 25 日 Brookings 经济活动会议上发布论文《Financing the AI Buildout》：2025–2032 年 AI 基建投资将达 10.3 万亿美元，年均占美国 GDP 的 3.63%，超过美国历史上运河、铁路、电气化、高速公路和电信任何一次基建热潮。风险正从大公司的表内融资转向合资、私人信贷、证券化、SPV 等不透明表外结构。",
+          "title": "Brookings：2025–2032 年 AI 基建投资将达 10.3 万亿美元",
+          "url": "https://www.brookings.edu/articles/financing-the-ai-buildout/",
+          "fetched_at": "09-25 08:30"
+        }
+      ],
+      "name": "资本与算力"
+    },
+    {
+      "items": [
+        {
+          "source": "The Information / Reuters",
+          "summary": "The Information 9 月 24 日报道，DeepSeek 年化营收已达 10 亿美元，较几个月前不足 5 亿美元翻倍。尽管 OpenAI 等美国厂商降价施压，DeepSeek 在高性价比路线上持续获利，印证了低成本模型赛道真实的付费需求，也解释了 Anthropic、OpenAI 本周为何急于推出降价版模型。",
+          "title": "DeepSeek 年化营收达 10 亿美元",
+          "url": "https://www.reuters.com/world/asia-pacific/chinas-deepseek-annualised-revenue-hits-1-billion-information-reports-2026-09-24/",
+          "fetched_at": "09-25 08:30"
+        },
+        {
+          "source": "北京商报 / 中国企业报道",
+          "summary": "9 月 23 日，吉利汽车集团发布全球新一代 AI 智充技术：基于与阶跃星辰联合开发的行业首个全域能源大模型星睿 PowerMind 能源大脑，第五代吉利智充站单枪峰值 2250 千瓦，AI 极速充实现 10%–70% 平均 4 分 30 秒、10%–97% 约 8 分 40 秒补能。中汽中心实测领克 10 峰值充电功率达 1093 千瓦，全程最高温度 64℃。",
+          "title": "吉利发布 AI 智充技术：最快 8 分钟充满",
+          "url": "https://www.cenr.com.cn/cyjj/qc/2026/09/24/234374.html",
+          "fetched_at": "09-25 08:30"
+        }
+      ],
+      "name": "国内动态"
+    }
+  ],
+  "weekday": "星期五"
+}
