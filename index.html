@@ -76,6 +76,11 @@
     color: #fff; background: linear-gradient(135deg, var(--accent1), var(--accent2));
     border-radius: 6px; padding: 2px 8px; margin-right: 8px; vertical-align: 2px;
   }
+  .time-badge {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    color: #aeb6c8; border: 1px solid var(--border); background: rgba(255,255,255,.04);
+    border-radius: 6px; padding: 2px 8px; margin-right: 8px; vertical-align: 2px;
+  }
   .hero h2 { font-size: 27px; line-height: 1.45; margin-bottom: 14px; }
   .hero p { color: #c6ccda; font-size: 15.5px; }
   .hero .src { margin-top: 16px; font-size: 13px; color: var(--muted); }
@@ -108,8 +113,7 @@
   .card .src { margin-top: 14px; font-size: 12.5px; color: #7c8496; }
   .card .src a, .hero .src a, .brief .src a, .search-meta a { color: var(--accent1); text-decoration: none; }
   .card .src a:hover, .hero .src a:hover, .brief .src a:hover, .search-meta a:hover { text-decoration: underline; }
-  .card .src .fetched, .hero .src .fetched, .brief .src .fetched { margin-top: 2px; color: #626b7e; font-size: 12px; }
-  .card .ed-tag {
+  .card .sec-tag {
     display: inline-block; align-self: flex-start; font-size: 12px; color: var(--muted);
     border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; margin-bottom: 10px;
   }
@@ -129,7 +133,25 @@
     color: #7c8496; font-size: 13px; display: flex; justify-content: space-between;
     flex-wrap: wrap; gap: 10px;
   }
-  .loading, .error { text-align: center; color: var(--muted); padding: 80px 20px; font-size: 15px; }
+  .error { text-align: center; color: var(--muted); padding: 80px 20px; font-size: 15px; }
+  /* 内容占位加载动画（骨架屏） */
+  .sk {
+    border-radius: 8px;
+    background: linear-gradient(90deg, rgba(255,255,255,.05) 25%, rgba(255,255,255,.12) 50%, rgba(255,255,255,.05) 75%);
+    background-size: 200% 100%;
+    animation: skshimmer 1.3s linear infinite;
+  }
+  @keyframes skshimmer { to { background-position: -200% 0; } }
+  .sk-hero { border-radius: 20px; padding: 30px; margin-bottom: 40px; border: 1px solid var(--border); background: rgba(255,255,255,.02); }
+  .sk-kicker { width: 90px; height: 22px; border-radius: 999px; margin-bottom: 16px; }
+  .sk-h { height: 20px; margin-bottom: 12px; }
+  .sk-h.big { height: 30px; width: 65%; margin-bottom: 16px; }
+  .sk-p { height: 14px; margin-bottom: 10px; }
+  .sk-p.w70 { width: 70%; }
+  .sk-p.w60 { width: 60%; }
+  .sk-sec { margin-bottom: 38px; }
+  .sk-title { width: 110px; height: 22px; margin-bottom: 18px; }
+  .sk-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
   @media (max-width: 640px) {
     .hero h2 { font-size: 22px; }
     .hero { padding: 24px 20px; }
@@ -154,7 +176,7 @@
     </div>
   </header>
 
-  <div id="app"><div class="loading">正在加载今日日报…</div></div>
+  <div id="app"><div class="sk-hero"><div class="sk sk-kicker"></div><div class="sk sk-h big"></div><div class="sk sk-p"></div><div class="sk sk-p w70"></div></div><div class="sk-sec"><div class="sk sk-title"></div><div class="cards"><div class="sk-card"><div class="sk sk-h"></div><div class="sk sk-p"></div><div class="sk sk-p w60"></div></div><div class="sk-card"><div class="sk sk-h"></div><div class="sk sk-p"></div><div class="sk sk-p w60"></div></div><div class="sk-card"><div class="sk sk-h"></div><div class="sk sk-p"></div><div class="sk sk-p w60"></div></div><div class="sk-card"><div class="sk sk-h"></div><div class="sk sk-p"></div><div class="sk sk-p w60"></div></div><div class="sk-card"><div class="sk sk-h"></div><div class="sk sk-p"></div><div class="sk sk-p w60"></div></div><div class="sk-card"><div class="sk sk-h"></div><div class="sk sk-p"></div><div class="sk sk-p w60"></div></div></div></div></div>
 
   <footer>
     <span>由 hanhan 每日自动抓取公开新闻生成，仅供学习交流。</span>
@@ -187,21 +209,37 @@ function srcLabel(item) {
   return "来源：" + label;
 }
 function metaLine(item) {
-  var s = "<div>" + srcLabel(item) + "</div>";
-  if (item.fetched_at) s += '<div class="fetched">抓取于 ' + esc(item.fetched_at) + "</div>";
+  return "<div>" + srcLabel(item) + "</div>";
+}
+// 标题左侧徽章：最新一期显示 NEW，往期显示日期
+function titleBadge(edate) {
+  var latest = editions[0] ? editions[0].date : "";
+  if (edate === latest) return '<span class="new-badge">NEW</span>';
+  return '<span class="time-badge">' + esc(String(edate).slice(5)) + "</span>";
+}
+function cardHtml(it, q, edate, secTag) {
+  var tag = secTag ? '<span class="sec-tag">' + esc(secTag) + "</span>" : "";
+  return '<article class="card">' + tag + "<h4>" + titleBadge(edate) + hi(it.title, q) + "</h4><p>" + hi(it.summary, q) +
+    '</p><div class="src">' + metaLine(it) + "</div></article>";
+}
+// 内容占位加载动画（骨架屏）
+function skelCards(n) {
+  var s = "";
+  for (var i = 0; i < n; i++) {
+    s += '<div class="sk-card"><div class="sk sk-h"></div><div class="sk sk-p"></div><div class="sk sk-p w60"></div></div>';
+  }
   return s;
 }
-function isNewItem(it, mmdd) {
-  return !!(it.fetched_at && it.fetched_at.indexOf(mmdd) === 0);
+function skelBriefs(n) {
+  var s = "";
+  for (var i = 0; i < n; i++) {
+    s += '<div class="brief"><div class="sk sk-h"></div><div class="sk sk-p w60"></div></div>';
+  }
+  return s;
 }
-function newBadge() {
-  return '<span class="new-badge">NEW</span>';
-}
-function cardHtml(it, q, edTag, isNew) {
-  var tag = edTag ? '<span class="ed-tag">' + esc(edTag) + "</span>" : "";
-  var nb = isNew ? newBadge() : "";
-  return '<article class="card">' + tag + "<h4>" + nb + hi(it.title, q) + "</h4><p>" + hi(it.summary, q) +
-    '</p><div class="src">' + metaLine(it) + "</div></article>";
+function skeletonHtml() {
+  return '<div class="sk-hero"><div class="sk sk-kicker"></div><div class="sk sk-h big"></div><div class="sk sk-p"></div><div class="sk sk-p w70"></div></div>' +
+    '<div class="sk-sec"><div class="sk sk-title"></div><div class="cards">' + skelCards(6) + "</div></div>";
 }
 function showError(msg) {
   document.getElementById("app").innerHTML = '<div class="error">' + esc(msg) + "</div>";
@@ -223,12 +261,11 @@ function getSecState(si) {
   if (!st) {
     var hs = homeSections()[si];
     var items = [];
-    function push(it, emmdd, edate) {
-      items.push({ it: it, emmdd: emmdd, edate: edate });
+    function push(it) {
+      items.push({ it: it, edate: editions[0].date });
     }
-    var m0 = editions[0].data.date.slice(5);
-    if (hs.kind === "briefs") (editions[0].data.briefs || []).forEach(function (it) { push(it, m0, editions[0].date); });
-    else sectionItemsOf(editions[0], hs.name).forEach(function (it) { push(it, m0, editions[0].date); });
+    if (hs.kind === "briefs") (editions[0].data.briefs || []).forEach(push);
+    else sectionItemsOf(editions[0], hs.name).forEach(push);
     // items: 今天的在前，往期按需追加；首页每板块补足 6 条（新3+旧3）
     st = { page: 0, items: items, dateIdx: 1, exhausted: allDates.length <= 1, loading: false, filling: false, name: hs.name, kind: hs.kind };
     secState[si] = st;
@@ -248,7 +285,7 @@ function fillSection(si) {
     st.dateIdx++;
     var list = st.kind === "briefs" ? (e.data.briefs || []) : sectionItemsOf(e, st.name);
     list.forEach(function (it) {
-      st.items.push({ it: it, emmdd: e.data.date.slice(5), edate: e.date });
+      st.items.push({ it: it, edate: e.date });
     });
     if (st.dateIdx >= allDates.length) st.exhausted = true;
     st.filling = false;
@@ -259,32 +296,25 @@ function fillSection(si) {
 function fillAllSections() {
   homeSections().forEach(function (s, si) { getSecState(si); fillSection(si); });
 }
-// 非最新一期的卡片标上日期
-function edTagOf(x) {
-  return x.edate === editions[0].date ? "" : x.edate.slice(5);
-}
 function pagerHtml2(si, st, pages, p) {
   var busy = st.loading || st.filling;
   var prevDis = (p === 0 || busy) ? " disabled" : "";
   var nextDis = (busy || (st.exhausted && p >= pages - 1)) ? " disabled" : "";
-  var label = st.loading ? "加载中…" : "第 " + (p + 1) + " 页";
   return '<div class="sec-pager"><button data-s="' + si + '" data-d="-1"' + prevDis + ">‹ 上一页</button>" +
-    "<span>" + label + "</span>" +
+    "<span>第 " + (p + 1) + " 页</span>" +
     '<button data-s="' + si + '" data-d="1"' + nextDis + ">下一页 ›</button></div>";
 }
 function renderEdition() {
   var latest = editions[0];
   if (!latest) { showError("暂无日报数据。"); return; }
   var d = latest.data;
-  var mmdd = d.date.slice(5);
   document.title = "AI 日报 · " + d.date;
 
   var hs = homeSections();
-  var h = '<div class="ed-line"><strong>' + esc(d.date) + "</strong> · " + esc(d.weekday || "") +
-    " · 最新一期" + (allDates.length > 1 ? "（共 " + allDates.length + " 期往期可翻）" : "") + "</div>";
+  var h = '<div class="ed-line">每日 08:22 更新</div>';
 
   if (d.headline) {
-    h += '<section class="hero"><span class="kicker">今日头条</span><h2>' + (isNewItem(d.headline, mmdd) ? newBadge() : "") + esc(d.headline.title) + "</h2><p>" +
+    h += '<section class="hero"><span class="kicker">今日头条</span><h2>' + titleBadge(d.date) + esc(d.headline.title) + "</h2><p>" +
       esc(d.headline.summary) + '</p><div class="src">' + metaLine(d.headline) + "</div></section>";
   }
 
@@ -298,14 +328,16 @@ function renderEdition() {
     if (pages > 1 || !st.exhausted) h += pagerHtml2(si, st, pages, p);
     if (s.kind === "briefs") {
       h += '</div><div class="briefs">';
-      slice.forEach(function (x) {
-        h += '<div class="brief"><strong>' + (isNewItem(x.it, x.emmdd) ? newBadge() : "") + esc(x.it.title) + "</strong><span>" + esc(x.it.summary) +
+      if (st.loading) h += skelBriefs(3);
+      else slice.forEach(function (x) {
+        h += '<div class="brief"><strong>' + titleBadge(x.edate) + esc(x.it.title) + "</strong><span>" + esc(x.it.summary) +
           '</span><div class="src">' + metaLine(x.it) + "</div></div>";
       });
       h += "</div></section>";
     } else {
       h += '</div><div class="cards">';
-      slice.forEach(function (x) { h += cardHtml(x.it, "", edTagOf(x), isNewItem(x.it, x.emmdd)); });
+      if (st.loading) h += skelCards(PAGE);
+      else slice.forEach(function (x) { h += cardHtml(x.it, "", x.edate); });
       h += "</div></section>";
     }
   });
@@ -325,7 +357,7 @@ function loadMore(si) {
     st.dateIdx++;
     var list = st.kind === "briefs" ? (e.data.briefs || []) : sectionItemsOf(e, st.name);
     list.forEach(function (it) {
-      st.items.push({ it: it, emmdd: e.data.date.slice(5), edate: e.date });
+      st.items.push({ it: it, edate: e.date });
     });
     if (st.dateIdx >= allDates.length) st.exhausted = true;
     if (list.length === 0 && !st.exhausted) { loadMore(si); return; }  // 这一期该板块没内容，继续往前找
@@ -344,7 +376,7 @@ function renderSearch() {
     var hits = [];
     function match(it, secName) {
       var t = [it.title, it.summary, it.source].join(" ").toLowerCase();
-      if (t.indexOf(q) !== -1) hits.push({ it: it, sec: secName });
+      if (t.indexOf(q) !== -1) hits.push({ it: it, sec: secName, edate: e.date });
     }
     if (d.headline) match(d.headline, "头条");
     (d.sections || []).forEach(function (sec) {
@@ -353,10 +385,9 @@ function renderSearch() {
     (d.briefs || []).forEach(function (b) { match(b, "一句话观察"); });
     if (hits.length) {
       total += hits.length;
-      var emmdd = d.date.slice(5);
       h += '<section class="section"><div class="section-head"><h3>' + esc(d.date) + " · " + esc(d.weekday || "") + "</h3></div>";
       h += '<div class="cards">';
-      hits.forEach(function (x) { h += cardHtml(x.it, query.trim(), x.sec, isNewItem(x.it, emmdd)); });
+      hits.forEach(function (x) { h += cardHtml(x.it, query.trim(), x.edate, x.sec); });
       h += "</div></section>";
     }
   });
@@ -369,7 +400,15 @@ function renderSearch() {
 }
 
 function render() {
-  if (query.trim()) renderSearch();
+  if (query.trim()) {
+    if (!olderLoaded && allDates.length > 1) {
+      // 搜索需要往期数据：加载中显示内容占位动画
+      document.getElementById("app").innerHTML = skeletonHtml();
+      ensureOlder();
+      return;
+    }
+    renderSearch();
+  }
   else renderEdition();
 }
 
@@ -422,8 +461,8 @@ document.getElementById("searchInput").addEventListener("input", function (ev) {
   searchTimer = setTimeout(function () {
     query = v;
     secState = {};
-    if (v.trim()) ensureOlder();  // 搜索时确保往期已加载，保证结果完整
     render();
+    if (!v.trim()) fillAllSections();  // 退出搜索后，重新补足首页各板块
   }, 250);
 });
 
