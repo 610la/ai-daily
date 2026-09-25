@@ -71,6 +71,11 @@
     color: #fff; background: linear-gradient(135deg, var(--accent1), var(--accent2));
     padding: 4px 14px; border-radius: 999px; margin-bottom: 16px;
   }
+  .new-badge {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    color: #fff; background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    border-radius: 6px; padding: 2px 8px; margin-right: 8px; vertical-align: 2px;
+  }
   .hero h2 { font-size: 27px; line-height: 1.45; margin-bottom: 14px; }
   .hero p { color: #c6ccda; font-size: 15.5px; }
   .hero .src { margin-top: 16px; font-size: 13px; color: var(--muted); }
@@ -186,9 +191,16 @@ function metaLine(item) {
   if (item.fetched_at) s += '<div class="fetched">抓取于 ' + esc(item.fetched_at) + "</div>";
   return s;
 }
-function cardHtml(it, q, edTag) {
+function isNewItem(it, mmdd) {
+  return !!(it.fetched_at && it.fetched_at.indexOf(mmdd) === 0);
+}
+function newBadge() {
+  return '<span class="new-badge">NEW</span>';
+}
+function cardHtml(it, q, edTag, isNew) {
   var tag = edTag ? '<span class="ed-tag">' + esc(edTag) + "</span>" : "";
-  return '<article class="card">' + tag + "<h4>" + hi(it.title, q) + "</h4><p>" + hi(it.summary, q) +
+  var nb = isNew ? newBadge() : "";
+  return '<article class="card">' + tag + "<h4>" + nb + hi(it.title, q) + "</h4><p>" + hi(it.summary, q) +
     '</p><div class="src">' + metaLine(it) + "</div></article>";
 }
 function showError(msg) {
@@ -199,10 +211,11 @@ function renderEdition() {
   var e = editions[0];
   if (!e) { showError("暂无日报数据。"); return; }
   var d = e.data;
+  var mmdd = d.date.slice(5);
   document.title = "AI 日报 · " + d.date;
   var h = '<div class="ed-line"><strong>' + esc(d.date) + "</strong> · " + esc(d.weekday || "") + " · 最新一期</div>";
   if (d.headline) {
-    h += '<section class="hero"><span class="kicker">今日头条</span><h2>' + esc(d.headline.title) + "</h2><p>" +
+    h += '<section class="hero"><span class="kicker">今日头条</span><h2>' + (isNewItem(d.headline, mmdd) ? newBadge() : "") + esc(d.headline.title) + "</h2><p>" +
       esc(d.headline.summary) + '</p><div class="src">' + metaLine(d.headline) + "</div></section>";
   }
   (d.sections || []).forEach(function (sec, si) {
@@ -218,13 +231,13 @@ function renderEdition() {
         '<button data-s="' + si + '" data-d="1"' + (p === pages - 1 ? " disabled" : "") + ">下一页 ›</button></div>";
     }
     h += '</div><div class="cards">';
-    slice.forEach(function (it) { h += cardHtml(it, "", ""); });
+    slice.forEach(function (it) { h += cardHtml(it, "", "", isNewItem(it, mmdd)); });
     h += "</div></section>";
   });
   if (d.briefs && d.briefs.length) {
     h += '<section class="section"><div class="section-head"><h3>一句话观察</h3></div><div class="briefs">';
     d.briefs.forEach(function (b) {
-      h += '<div class="brief"><strong>' + esc(b.title) + "</strong><span>" + esc(b.summary) +
+      h += '<div class="brief"><strong>' + (isNewItem(b, mmdd) ? newBadge() : "") + esc(b.title) + "</strong><span>" + esc(b.summary) +
         '</span><div class="src">' + metaLine(b) + "</div></div>";
     });
     h += "</div></section>";
@@ -250,9 +263,10 @@ function renderSearch() {
     (d.briefs || []).forEach(function (b) { match(b, "一句话观察"); });
     if (hits.length) {
       total += hits.length;
+      var emmdd = d.date.slice(5);
       h += '<section class="section"><div class="section-head"><h3>' + esc(d.date) + " · " + esc(d.weekday || "") + "</h3></div>";
       h += '<div class="cards">';
-      hits.forEach(function (x) { h += cardHtml(x.it, query.trim(), x.sec); });
+      hits.forEach(function (x) { h += cardHtml(x.it, query.trim(), x.sec, isNewItem(x.it, emmdd)); });
       h += "</div></section>";
     }
   });
