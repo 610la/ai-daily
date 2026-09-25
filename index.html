@@ -222,36 +222,51 @@ function getSecState(si) {
   var st = secState[si];
   if (!st) {
     var hs = homeSections()[si];
-    var today = [];
-    function push(it) {
-      today.push({ it: it, emmdd: editions[0].data.date.slice(5), edate: editions[0].date });
+    var items = [];
+    function push(it, emmdd, edate) {
+      items.push({ it: it, emmdd: emmdd, edate: edate });
     }
-    if (hs.kind === "briefs") (editions[0].data.briefs || []).forEach(push);
-    else sectionItemsOf(editions[0], hs.name).forEach(push);
-    // today: 最新一期的内容；older: 点击翻页时按需加载的往期内容，翻完 today 才翻 older
-    st = { page: 0, today: today, older: [], dateIdx: 1, exhausted: allDates.length <= 1, loading: false, name: hs.name, kind: hs.kind };
+    var m0 = editions[0].data.date.slice(5);
+    if (hs.kind === "briefs") (editions[0].data.briefs || []).forEach(function (it) { push(it, m0, editions[0].date); });
+    else sectionItemsOf(editions[0], hs.name).forEach(function (it) { push(it, m0, editions[0].date); });
+    // items: 今天的在前，往期按需追加；首页每板块补足 6 条（新3+旧3）
+    st = { page: 0, items: items, dateIdx: 1, exhausted: allDates.length <= 1, loading: false, filling: false, name: hs.name, kind: hs.kind };
     secState[si] = st;
   }
   return st;
 }
-// 总页数 = today 的页数 + 已加载 older 的页数
-function secPages(st) {
-  var tp = Math.max(1, Math.ceil(st.today.length / PAGE));
-  return { todayPages: tp, total: tp + Math.ceil(st.older.length / PAGE) };
+// 首页补足：某板块不足 6 条时，往前找更早一期来补，直到 6 条或没有往期为止（只补第一页需要的量）
+function fillSection(si) {
+  var st = secState[si];
+  if (!st || st.filling) return;
+  if (st.items.length >= PAGE || st.dateIdx >= allDates.length) {
+    if (st.dateIdx >= allDates.length) st.exhausted = true;
+    return;
+  }
+  st.filling = true;
+  fetchOne(allDates[st.dateIdx]).then(function (e) {
+    st.dateIdx++;
+    var list = st.kind === "briefs" ? (e.data.briefs || []) : sectionItemsOf(e, st.name);
+    list.forEach(function (it) {
+      st.items.push({ it: it, emmdd: e.data.date.slice(5), edate: e.date });
+    });
+    if (st.dateIdx >= allDates.length) st.exhausted = true;
+    st.filling = false;
+    if (st.items.length < PAGE && !st.exhausted) { fillSection(si); return; }
+    render();
+  }).catch(function () { st.filling = false; render(); });
 }
-function secSlice(st, p) {
-  var tp = Math.max(1, Math.ceil(st.today.length / PAGE));
-  if (p < tp) return st.today.slice(p * PAGE, p * PAGE + PAGE);
-  var q = p - tp;
-  return st.older.slice(q * PAGE, q * PAGE + PAGE);
+function fillAllSections() {
+  homeSections().forEach(function (s, si) { getSecState(si); fillSection(si); });
 }
 // 非最新一期的卡片标上日期
 function edTagOf(x) {
   return x.edate === editions[0].date ? "" : x.edate.slice(5);
 }
 function pagerHtml2(si, st, pages, p) {
-  var prevDis = (p === 0 || st.loading) ? " disabled" : "";
-  var nextDis = (st.loading || (st.exhausted && p >= pages - 1)) ? " disabled" : "";
+  var busy = st.loading || st.filling;
+  var prevDis = (p === 0 || busy) ? " disabled" : "";
+  var nextDis = (busy || (st.exhausted && p >= pages - 1)) ? " disabled" : "";
   var label = st.loading ? "加载中…" : "第 " + (p + 1) + " 页";
   return '<div class="sec-pager"><button data-s="' + si + '" data-d="-1"' + prevDis + ">‹ 上一页</button>" +
     "<span>" + label + "</span>" +
@@ -275,12 +290,12 @@ function renderEdition() {
 
   hs.forEach(function (s, si) {
     var st = getSecState(si);
-    var pg = secPages(st);
-    var p = Math.min(st.page, pg.total - 1);
+    var pages = Math.max(1, Math.ceil(st.items.length / PAGE));
+    var p = Math.min(st.page, pages - 1);
     st.page = p;
-    var slice = secSlice(st, p);
+    var slice = st.items.slice(p * PAGE, p * PAGE + PAGE);
     h += '<section class="section"><div class="section-head"><h3>' + esc(s.name) + "</h3>";
-    if (pg.total > 1 || !st.exhausted) h += pagerHtml2(si, st, pg.total, p);
+    if (pages > 1 || !st.exhausted) h += pagerHtml2(si, st, pages, p);
     if (s.kind === "briefs") {
       h += '</div><div class="briefs">';
       slice.forEach(function (x) {
@@ -310,7 +325,7 @@ function loadMore(si) {
     st.dateIdx++;
     var list = st.kind === "briefs" ? (e.data.briefs || []) : sectionItemsOf(e, st.name);
     list.forEach(function (it) {
-      st.older.push({ it: it, emmdd: e.data.date.slice(5), edate: e.date });
+      st.items.push({ it: it, emmdd: e.data.date.slice(5), edate: e.date });
     });
     if (st.dateIdx >= allDates.length) st.exhausted = true;
     if (list.length === 0 && !st.exhausted) { loadMore(si); return; }  // 这一期该板块没内容，继续往前找
@@ -364,14 +379,14 @@ document.getElementById("app").addEventListener("click", function (ev) {
   var si = parseInt(b.getAttribute("data-s"), 10);
   var dd = parseInt(b.getAttribute("data-d"), 10);
   var st = secState[si];
-  if (!st || st.loading) return;
+  if (!st || st.loading || st.filling) return;
   if (dd < 0) {
     st.page = Math.max(0, st.page - 1);
     render();
     return;
   }
-  var pg = secPages(st);
-  if (st.page + 1 < pg.total) { st.page++; render(); return; }
+  var pages = Math.max(1, Math.ceil(st.items.length / PAGE));
+  if (st.page + 1 < pages) { st.page++; render(); return; }
   if (st.exhausted) return;
   st.loading = true;
   render();
@@ -382,12 +397,14 @@ var searchTimer = null;
 var olderLoaded = false, olderLoading = false, allDates = [];
 
 // 搜索需要全部往期数据：只在用户真正搜索时才加载（首页翻页是按板块按需加载，不走这里）
-var edCache = {};  // 同个日期只请求一次，各板块按需加载时共享
+var edCache = {};  // 同个日期只请求一次（存 promise，并发也共享），各板块按需加载时共享
 function fetchOne(en) {
-  if (edCache[en.date]) return Promise.resolve(edCache[en.date]);
-  return fetch("data/" + en.date + ".json", { cache: "no-store" })
-    .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
-    .then(function (d) { var e = { date: en.date, weekday: en.weekday, data: d }; edCache[en.date] = e; return e; });
+  if (!edCache[en.date]) {
+    edCache[en.date] = fetch("data/" + en.date + ".json", { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
+      .then(function (d) { return { date: en.date, weekday: en.weekday, data: d }; });
+  }
+  return edCache[en.date];
 }
 function ensureOlder() {
   if (olderLoaded || olderLoading || allDates.length <= 1) return;
@@ -423,6 +440,7 @@ fetch("data/index.json", { cache: "no-store" })
     if (!e) return;
     editions = [e];
     render();
+    fillAllSections();  // 首页每板块补足 6 条（新3+旧3），只补第一页需要的量
   })
   .catch(function () { showError("日报数据加载失败，请稍后刷新重试。"); });
 </script>
