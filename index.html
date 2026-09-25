@@ -208,40 +208,81 @@ function showError(msg) {
 }
 
 function renderEdition() {
-  var e = editions[0];
-  if (!e) { showError("暂无日报数据。"); return; }
-  var d = e.data;
+  var latest = editions[0];
+  if (!latest) { showError("暂无日报数据。"); return; }
+  var d = latest.data;
   var mmdd = d.date.slice(5);
   document.title = "AI 日报 · " + d.date;
-  var h = '<div class="ed-line"><strong>' + esc(d.date) + "</strong> · " + esc(d.weekday || "") + " · 最新一期</div>";
+
+  // 合并全部往期的同名板块（条目按最新在前），各板块独立翻全部内容
+  var secOrder = [], secMap = {};
+  editions.forEach(function (e) {
+    var edate = e.data.date, emmdd = edate.slice(5);
+    (e.data.sections || []).forEach(function (sec) {
+      if (!secMap[sec.name]) { secMap[sec.name] = []; secOrder.push(sec.name); }
+      (sec.items || []).forEach(function (it) {
+        secMap[sec.name].push({ it: it, emmdd: emmdd, edate: edate });
+      });
+    });
+  });
+  var briefList = [];
+  editions.forEach(function (e) {
+    var edate = e.data.date, emmdd = edate.slice(5);
+    (e.data.briefs || []).forEach(function (b) {
+      briefList.push({ it: b, emmdd: emmdd, edate: edate });
+    });
+  });
+
+  var total = briefList.length;
+  secOrder.forEach(function (n) { total += secMap[n].length; });
+
+  var h = '<div class="ed-line"><strong>' + esc(d.date) + "</strong> · " + esc(d.weekday || "") +
+    " · 全部往期共 <strong>" + total + "</strong> 条</div>";
+
   if (d.headline) {
     h += '<section class="hero"><span class="kicker">今日头条</span><h2>' + (isNewItem(d.headline, mmdd) ? newBadge() : "") + esc(d.headline.title) + "</h2><p>" +
       esc(d.headline.summary) + '</p><div class="src">' + metaLine(d.headline) + "</div></section>";
   }
-  (d.sections || []).forEach(function (sec, si) {
-    var items = sec.items || [];
+
+  function pagerHtml(si, pages, p) {
+    return '<div class="sec-pager"><button data-s="' + si + '" data-d="-1"' + (p === 0 ? " disabled" : "") + ">‹ 上一页</button>" +
+      "<span>" + (p + 1) + " / " + pages + "</span>" +
+      '<button data-s="' + si + '" data-d="1"' + (p === pages - 1 ? " disabled" : "") + ">下一页 ›</button></div>";
+  }
+  function pagedSlice(si, items) {
     var pages = Math.max(1, Math.ceil(items.length / PAGE));
     var p = Math.min(secPage[si] || 0, pages - 1);
     secPage[si] = p;
-    var slice = items.slice(p * PAGE, p * PAGE + PAGE);
-    h += '<section class="section"><div class="section-head"><h3>' + esc(sec.name) + "</h3>";
-    if (pages > 1) {
-      h += '<div class="sec-pager"><button data-s="' + si + '" data-d="-1"' + (p === 0 ? " disabled" : "") + ">‹ 上一页</button>" +
-        "<span>" + (p + 1) + " / " + pages + "</span>" +
-        '<button data-s="' + si + '" data-d="1"' + (p === pages - 1 ? " disabled" : "") + ">下一页 ›</button></div>";
-    }
+    return { pages: pages, p: p, slice: items.slice(p * PAGE, p * PAGE + PAGE) };
+  }
+  // 非最新一期的卡片标上日期
+  function edTag(x) {
+    return x.edate === latest.date ? "" : x.edate.slice(5);
+  }
+
+  secOrder.forEach(function (name, si) {
+    var items = secMap[name];
+    var ps = pagedSlice(si, items);
+    h += '<section class="section"><div class="section-head"><h3>' + esc(name) + "</h3>";
+    if (ps.pages > 1) h += pagerHtml(si, ps.pages, ps.p);
     h += '</div><div class="cards">';
-    slice.forEach(function (it) { h += cardHtml(it, "", "", isNewItem(it, mmdd)); });
+    ps.slice.forEach(function (x) { h += cardHtml(x.it, "", edTag(x), isNewItem(x.it, x.emmdd)); });
     h += "</div></section>";
   });
-  if (d.briefs && d.briefs.length) {
-    h += '<section class="section"><div class="section-head"><h3>一句话观察</h3></div><div class="briefs">';
-    d.briefs.forEach(function (b) {
-      h += '<div class="brief"><strong>' + (isNewItem(b, mmdd) ? newBadge() : "") + esc(b.title) + "</strong><span>" + esc(b.summary) +
-        '</span><div class="src">' + metaLine(b) + "</div></div>";
+
+  if (briefList.length) {
+    var bsi = secOrder.length;
+    var ps2 = pagedSlice(bsi, briefList);
+    h += '<section class="section"><div class="section-head"><h3>一句话观察</h3>';
+    if (ps2.pages > 1) h += pagerHtml(bsi, ps2.pages, ps2.p);
+    h += '</div><div class="briefs">';
+    ps2.slice.forEach(function (x) {
+      h += '<div class="brief"><strong>' + (isNewItem(x.it, x.emmdd) ? newBadge() : "") + esc(x.it.title) + "</strong><span>" + esc(x.it.summary) +
+        '</span><div class="src">' + metaLine(x.it) + "</div></div>";
     });
     h += "</div></section>";
   }
+
   document.getElementById("app").innerHTML = h;
 }
 
