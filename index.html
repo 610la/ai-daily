@@ -428,11 +428,14 @@ document.getElementById("app").addEventListener("click", function (ev) {
     return;
   }
   var pages = Math.max(1, Math.ceil(st.items.length / PAGE));
-  if (st.page + 1 < pages) { st.page++; render(); return; }
-  if (st.exhausted) return;
+  var targetFull = st.items.length >= (st.page + 2) * PAGE;
+  if (st.exhausted || targetFull) {  // 目标页已满或没有更多数据，直接翻页
+    if (st.page + 1 < pages) { st.page++; render(); }
+    return;
+  }
   st.loading = true;
   render();
-  loadMore(si);  // 今天的内容翻完，才去取更早一期
+  loadMore(si);  // 先把下一页填满（或取完所有数据）再翻页
 });
 
 var searchTimer = null;
