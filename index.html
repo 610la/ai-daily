@@ -347,7 +347,7 @@ function renderEdition() {
   document.getElementById("app").innerHTML = h;
 }
 
-// 按需加载：点击"下一页"时才去取更早一期的该板块内容
+// 按需加载：点击"下一页"时取更早一期的数据，把下一页填满（每页 PAGE 条）再翻页
 function loadMore(si) {
   var st = secState[si];
   if (!st || st.dateIdx >= allDates.length) {
@@ -355,6 +355,7 @@ function loadMore(si) {
     render();
     return;
   }
+  var need = (st.page + 2) * PAGE;  // 下一页填满需要的总条数
   fetchOne(allDates[st.dateIdx]).then(function (e) {
     st.dateIdx++;
     var list = st.kind === "briefs" ? (e.data.briefs || []) : sectionItemsOf(e, st.name);
@@ -362,7 +363,7 @@ function loadMore(si) {
       st.items.push({ it: it, edate: e.date });
     });
     if (st.dateIdx >= allDates.length) st.exhausted = true;
-    if (list.length === 0 && !st.exhausted) { loadMore(si); return; }  // 这一期该板块没内容，继续往前找
+    if (st.items.length < need && !st.exhausted) { loadMore(si); return; }  // 下一页还没填满，继续往前取
     st.loading = false;
     st.page++;
     render();
