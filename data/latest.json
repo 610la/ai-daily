@@ -20,6 +20,13 @@
       "summary": "彭博 10 月 2 日披露，Broadcom 的华尔街银团正为 Anthropic 等客户的 AI 芯片筹集 600 亿美元融资：其中 420 亿美元 Class A 高级担保债券即将向投资者发送承销函；180 亿美元 Class B 次级债由黑石牵头，黑石自掏腰包 90 亿美元、剩余 90 亿美元向其他投资者分销。报道强调该银团包与给 Anthropic 的 420 亿美元可转债融资相互独立；债务工具可转股为 Anthropic 股份，Anthropic 预计明年成为 Broadcom 最大芯片设计客户。这与 8 月英伟达联合 6 家金融机构（含黑石）筹集超 5000 亿美元的模式并列——芯片厂商“借钱给买家买自家芯片”的循环融资正在扩散。",
       "title": "彭博：Broadcom 600 亿美元融资包明细曝光——420 亿高级担保+黑石牵头 180 亿次级债",
       "url": "https://www.rdworldonline.com/broadcom-lines-up-60-billion-as-suppliers-finance-the-frontier-labs-compute/"
+    },
+    {
+      "title": "Hinton、Bengio 等 22 位 AI 大佬联名发布《智能爆炸》报告：AI 自主研发正在逼近拐点",
+      "source": "新智元",
+      "url": "https://k.sina.cn/article_5953190046_162d6789e06703tlqc.html?from=tech",
+      "fetched_at": "10-03 15:22",
+      "summary": "10月3日，包括诺奖得主Geoffrey Hinton、图灵奖得主Yoshua Bengio、OpenAI首席科学家Jakub Pachocki、Anthropic联创Jack Clark、Meta AI研究副总裁Dawn Song在内的22位顶尖AI研究者，在剑桥大学CASP平台联名发布研究报告（https://casp.ac/reports/intelligence-explosion），主题是AI自主研发可能引爆“智能爆炸”。报告披露：Anthropic内部AI编写代码比例在2026年5月已超80%，完全由AI自主完成、人类只做高级别监督的研发工作比例在五个月内从1%飙升至26%，内部约3万个AI智能体仅8月就产生超10亿次决策；OpenAI、谷歌内部AI写代码比例分别达80%和75%。作者测算，若前沿实验室将现有推理算力全部投入AI研发自动化，爆发出的研发吞吐量相当于同时雇佣200万到2000万名顶级人类科学家，AI技术进化速度将在17个月内提升10倍。报告同时警告智能爆炸将压缩人类协调、监管与适应的时间。"
     }
   ],
   "date": "2026-10-03",
@@ -53,6 +60,13 @@
           "summary": "按 Google 公布的停服计划，原版 Nano Banana（gemini-2.5-flash-image）已于 10 月 2 日关闭，gemini-omni-flash-preview 则于 9 月 30 日先行关闭。Gemini 2.5 Pro、Flash 与 Flash-Lite 在 Google Cloud Agent Platform 上的关闭日期为 10 月 20 日；Google 在 9 月 29 日更新的官方文档还规定，Gemini Developer API 不再公布具体停服日，且新项目已无法继续使用这三款模型，等于提前强制迁移。追踪网站 Digital Matters 指出 Google 各官方页面对关闭日期存在互相矛盾之处，提醒开发者按最紧的日期（10 月 20 日）规划迁移。",
           "title": "谷歌 10 月集中下线老模型：初代 Nano Banana 已关，Gemini 2.5 系列 10 月 20 日退场",
           "url": "https://digitalmatters.me/artificial-intelligence-ai/gemini-model-shutoffs-october-2026/"
+        },
+        {
+          "title": "谷歌正式发布 Gemini 4 Argon：分阶段受控上线，暂不对普通用户开放",
+          "source": "环球网（新浪科技）",
+          "url": "https://finance.sina.cn/stock/jdts/2026-10-03/detail-initwzsi4116625.d.html",
+          "fetched_at": "10-03 15:22",
+          "summary": "据外媒CNBC消息，谷歌10月3日正式发布新一代前沿旗舰大模型Gemini 4 Argon，对标OpenAI与Anthropic最新模型。Argon重点强化长周期任务推理、软件工程、企业知识处理与网络安全防御：输出上限由上代6.4万提升至100万Token，可一次处理数十万Token的复杂任务，官方19项基准中拿下13项第一；已在谷歌内部用于大型代码库迁移、科研研发等实际工作。谷歌采取分阶段受控发布策略：通过Fairwind项目仅向严格审核的网络安全专业人员开放，同时参与美国政府预发布安全评估，暂不对普通用户和一般开发者开放。推广期API定价每百万输入Token 2美元、输出10美元（缓存输入大幅折扣），后续将上调价格，全面开放时间未公布。"
         }
       ],
       "name": "大模型"
