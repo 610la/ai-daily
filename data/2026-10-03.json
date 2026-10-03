@@ -27,6 +27,27 @@
       "url": "https://k.sina.cn/article_5953190046_162d6789e06703tlqc.html?from=tech",
       "fetched_at": "10-03 15:22",
       "summary": "10月3日，包括诺奖得主Geoffrey Hinton、图灵奖得主Yoshua Bengio、OpenAI首席科学家Jakub Pachocki、Anthropic联创Jack Clark、Meta AI研究副总裁Dawn Song在内的22位顶尖AI研究者，在剑桥大学CASP平台联名发布研究报告（https://casp.ac/reports/intelligence-explosion），主题是AI自主研发可能引爆“智能爆炸”。报告披露：Anthropic内部AI编写代码比例在2026年5月已超80%，完全由AI自主完成、人类只做高级别监督的研发工作比例在五个月内从1%飙升至26%，内部约3万个AI智能体仅8月就产生超10亿次决策；OpenAI、谷歌内部AI写代码比例分别达80%和75%。作者测算，若前沿实验室将现有推理算力全部投入AI研发自动化，爆发出的研发吞吐量相当于同时雇佣200万到2000万名顶级人类科学家，AI技术进化速度将在17个月内提升10倍。报告同时警告智能爆炸将压缩人类协调、监管与适应的时间。"
+    },
+    {
+      "fetched_at": "10-03 17:22",
+      "source": "IT之家（转引 Black Forest Labs 公告）",
+      "title": "Black Forest Labs 发布 FLUX 3 Image：支持 4K 生图，可用坐标网格精确排布画面元素",
+      "summary": "德国 AI 公司 Black Forest Labs 于 10 月 2 日发布图像生成模型 FLUX 3 Image，支持最高 4K 分辨率输出，放大后仍保留丰富细节。模型以高可控性与精细编辑为卖点：用户可在归一化的 0–1000 坐标网格上为每个元素指定 ID、描述文本和精确边界框，实现画面元素的精准排布。",
+      "url": "https://k.sina.cn/article_5952915720_162d2490806704xtos.html"
+    },
+    {
+      "fetched_at": "10-03 17:22",
+      "source": "Crunchbase News",
+      "title": "本周美国融资榜几乎全是 AI：个人助手 Instinct 完成 10 亿美元 C 轮，估值 100 亿美元",
+      "summary": "旧金山个人 AI 助手开发商 Instinct 完成 10 亿美元 C 轮融资，Sequoia、Benchmark、Coatue 参投，估值达 100 亿美元。同周 EliseAI 完成 3.5 亿美元融资（估值 40 亿，进军医疗场景），AI 安全公司 Armadin 完成 2.555 亿美元 B 轮（估值超 25 亿美元，a16z 与 Accel 领投）。Crunchbase 统计本周美国十大融资几乎全部流向 AI。",
+      "url": "https://news.crunchbase.com/venture/biggest-funding-rounds-ai-cyber-real-estate-instinct/"
+    },
+    {
+      "fetched_at": "10-03 17:22",
+      "source": "Reuters",
+      "title": "CScale 完成 1.45 亿美元融资：用光子互连替代铜线连接 AI 芯片，Nvidia、Intel 参投",
+      "summary": "硅谷初创 CScale 于 9 月 30 日宣布完成 1.45 亿美元融资，Nvidia 与 Intel 参投，累计融资达 1.88 亿美元。公司试图用光纤/激光互连替代 AI 数据中心服务器内连接芯片的铜缆，解决铜缆传输距离受限、迫使芯片密集堆叠并依赖液冷的问题，计划 2028 年交付芯片。",
+      "url": "https://www.reuters.com/business/media-telecom/cscale-raises-145-million-ai-networking-with-backing-nvidia-intel-2026-09-30/"
     }
   ],
   "date": "2026-10-03",
