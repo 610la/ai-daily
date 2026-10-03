@@ -48,6 +48,27 @@
       "title": "CScale 完成 1.45 亿美元融资：用光子互连替代铜线连接 AI 芯片，Nvidia、Intel 参投",
       "summary": "硅谷初创 CScale 于 9 月 30 日宣布完成 1.45 亿美元融资，Nvidia 与 Intel 参投，累计融资达 1.88 亿美元。公司试图用光纤/激光互连替代 AI 数据中心服务器内连接芯片的铜缆，解决铜缆传输距离受限、迫使芯片密集堆叠并依赖液冷的问题，计划 2028 年交付芯片。",
       "url": "https://www.reuters.com/business/media-telecom/cscale-raises-145-million-ai-networking-with-backing-nvidia-intel-2026-09-30/"
+    },
+    {
+      "fetched_at": "10-03 18:22",
+      "source": "Quartz（引述见 Kimkj 10-03 全球 AI 周报）",
+      "title": "Michael Burry：市场应大幅崩盘，以阻止 OpenAI 与 Anthropic 上市",
+      "url": "https://qz.com/michael-burry-openai-anthropic-ipo-market-crash-100126",
+      "summary": "《大空头》原型人物 Michael Burry 10 月 3 日在 X 上发文：\"为了人类，市场应大幅崩盘，以阻止 OpenAI 和 Anthropic 上市\"，称两家公司会吸走数万亿美元后将其烧光。同日他也表示 OpenAI 在 2026 年 IPO 并不合适——泡沫警告与两家实验室的巨额资本开支正成为市场争论焦点。"
+    },
+    {
+      "fetched_at": "10-03 18:22",
+      "source": "新浪财经（转引网易科技）",
+      "title": "英伟达盘中创历史新高，市值逼近 6 万亿美元",
+      "url": "https://finance.sina.cn/stock/jdts/2026-10-03/detail-initwvkr5147431.d.html",
+      "summary": "周五盘中涨幅约 3% 刷新历史盘中高点（5 月以来首次），市值一度突破 5.7 万亿美元，距 6 万亿美元关口不足 4000 亿美元。利好包括：The Information 报道英伟达与软银已分别完成对 OpenAI 上一轮融资的最后一笔 100 亿美元投资、各自兑现 300 亿美元承诺；英伟达本周一宣布将股票回购授权扩大 1500 亿美元至总规模 2350 亿美元，并预计在 2028 财年前执行完毕。"
+    },
+    {
+      "fetched_at": "10-03 18:22",
+      "source": "WHTop（引述 Hosting Journalist）",
+      "title": "AI 智能体网络控制公司 Doxx.net 完成 3800 万美元 A 轮融资",
+      "url": "https://www.whtop.com/news/35880-doxx.net-raises-38-million-for-ai-agent-networking-controls",
+      "summary": "Doxx.net 于 10 月 2 日宣布完成 3800 万美元 A 轮融资，由 Andreessen Horowitz 领投，并上线了一个私有网络平台：让 AI 智能体可自行配置网络连接、租赁 IP 地址、管理防火墙设置。面向云运营商与企业开发者，试图把网络运维自动化，但也引发了智能体权限过大、生产就绪度存疑的质疑。"
     }
   ],
   "date": "2026-10-03",
@@ -147,6 +168,13 @@
           "summary": "企业客服智能体公司 Decagon 10 月 2 日宣布成为 OpenAI Marketplace（OpenAI 新推出的 B2B 市场）的首批合作伙伴：符合条件的 OpenAI 企业客户可将现有合同承诺额度的一部分，直接用于采购 Decagon 的客户服务 AI 智能体。Decagon 称其数周内即可上线，并持有 SOC 2 Type 2、HIPAA、GDPR、CCPA 合规认证。首批伙伴还包括 Salesforce、ServiceNow、Adobe、Figma、Harvey 等约 32 家公司——OpenAI 的生态系统正在从“卖 API”扩展为企业软件分销渠道，客户可直接用 OpenAI 合同额度购买第三方 AI 软件。",
           "title": "Decagon 成为 OpenAI 企业级 B2B 市场首批合作伙伴",
           "url": "https://www.unite.ai/decagon-joins-openais-b2b-marketplace-as-a-launch-partner/"
+        },
+        {
+          "fetched_at": "10-03 18:22",
+          "source": "The Keyword（转引 OpenAI 公告与 TechCrunch）",
+          "title": "ChatGPT 上线虚拟试穿与 Favorites：购物结果出现「Try on」按钮",
+          "url": "https://www.thekeyword.co/news/chatgpt-virtual-try-on-shopping",
+          "summary": "OpenAI 10 月 1 日在全球上线 ChatGPT 购物新功能：服装配饰类商品列表出现「Try on」按钮，上传自拍/全身照后由 ChatGPT Images 2.5 生成试穿效果图；任意零售商的截图也可直接上传试穿，参考照片默认保存以便复用。同步上线的 Favorites 功能把心仪商品与试穿图存入 ChatGPT Library。OpenAI 提醒试穿图不代表真实产品外观、不保证合身——此前 Instant Checkout 效果不及预期，OpenAI 的电商重心正从结算转向发现与可视化。"
         }
       ],
       "name": "AI 产品"
@@ -220,6 +248,20 @@
           "summary": "新浪财经 10 月 3 日报道，国庆假期进入第三天，越来越多游客把做攻略交给 AI，却遭遇信息不可靠的翻车现场：景点营业时间、景区是否需要预约、店铺是否开业等关键信息，常被 AI 凭概率补足而非核实，呈现“基础信息出错少、真实情况全靠猜”的问题模式。这一现象反映出 AI 智能体在生活服务场景的落地痛点——公开信息碎片化、实时性弱，导致“幻觉”在需要准确性的消费决策场景中被放大，旅游餐饮等服务业落地仍需更可靠的数据源与验证机制。",
           "title": "国庆出游用 AI 做攻略，“第一批人已经被坑惨了”",
           "url": "https://finance.sina.com.cn/roll/2026-10-03/doc-initwzsm0894631.shtml"
+        },
+        {
+          "fetched_at": "10-03 18:22",
+          "source": "GenZTech（引述 Semafor、SCMP）",
+          "title": "DeepSeek 加码华为 Ascend：V4 预览适配 950 PR 芯片，开源含 TileLang 的工具链",
+          "url": "https://genztech.blog/p/deepseek-huawei-ascend-tilelang-cuda-alternative/",
+          "summary": "Semafor 10 月 1 日报道 DeepSeek 与华为宣布半导体软件合作：V4 预览已适配 Ascend 950 PR 芯片，DeepSeek 还在 9 月 30 日开源了面向 Ascend 的工具链（TileLang 适配器 + 6 个库），以降低对 Nvidia CUDA 软件的依赖。梁文锋将国产芯片训练列为公司最高优先级，华为预计从 Q4 起向 DeepSeek 交付训练芯片；此前 Bloomberg 报道 DeepSeek 计划在乌兰察布部署至少 16 万片 Ascend 950DT（约 1GW 规模，现阶段多用于推理而非训练）。"
+        },
+        {
+          "fetched_at": "10-03 18:22",
+          "source": "Kimkj 全球 AI 周报 10-03（引述 The Information 等）",
+          "title": "DeepSeek 被曝首轮外部融资进行中：约 500 亿元人民币、估值 5000 亿元，腾讯阿里或参投",
+          "url": "https://kimkj.com/zh/ai-board-zh/?mod=document&uid=17642",
+          "summary": "10 月 3 日报道，DeepSeek 正在协商首轮外部融资约 500 亿元人民币（约 75 亿美元），估值约 5000 亿元人民币（约 740 亿美元），传腾讯与阿里巴巴考虑参投；另据中国科技周报消息，DeepSeek 正在筹备科创板上市、中信证券任主承销商，1–7 月营收 4.75 亿元约为 2025 全年的 10 倍。融资尚未最终确认，谈判仍在进行中。"
         }
       ],
       "name": "国内动态"
